@@ -1,0 +1,462 @@
+<!DOCTYPE html>
+<html lang="ka">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>ადმინ-პანელი | PRIME PROPERTIES</title>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Georgian:wght@400;500;600&family=Noto+Serif+Georgian:wght@500;600&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#F5F9FB; --surface:#fff; --ink:#1F2D3A; --muted:#64768A;
+  --sky:#DCEBF3; --sage:#5E8C7B; --sage-dark:#4C7666; --sage-soft:#E4F0EA; --gold:#B88A42; --line:#E1EAF0; --red:#C9594B;
+  --serif:'Noto Serif Georgian',Georgia,serif; --sans:'Noto Sans Georgian',system-ui,sans-serif;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:var(--sans);background:var(--bg);color:var(--ink);line-height:1.5;font-size:15px}
+button,input,select,textarea{font:inherit;color:inherit}
+:focus-visible{outline:3px solid var(--gold);outline-offset:2px}
+[hidden]{display:none!important}
+.btn{border:1px solid var(--sage);background:var(--sage);color:#fff;padding:9px 18px;border-radius:10px;font-weight:600;cursor:pointer;transition:background .2s}
+.btn:hover{background:var(--sage-dark)}
+a.btn{text-decoration:none;display:inline-block}
+.btn.ghost{background:#fff;color:var(--sage)}
+.btn.ghost:hover{background:var(--sage-soft)}
+.btn.danger{background:#fff;border-color:var(--red);color:var(--red)}
+.btn.danger:hover{background:var(--red);color:#fff}
+.btn.small{padding:6px 12px;font-size:.85rem;border-radius:8px}
+.btn:disabled{opacity:.6;cursor:wait}
+
+/* Login */
+.login-wrap{min-height:100vh;display:grid;place-items:center;padding:24px}
+.login{background:var(--surface);border:1px solid var(--line);border-radius:20px;padding:32px;width:100%;max-width:400px;box-shadow:0 18px 40px rgba(60,100,130,.12)}
+.login h1{font-family:var(--serif);font-size:1.5rem;margin-bottom:4px}
+.login p.sub{color:var(--muted);margin-bottom:20px;font-size:.9rem}
+.err{color:var(--red);font-size:.9rem;margin-top:10px;min-height:1.2em}
+.notice{background:#FFF6E5;border:1px solid #EBCB8B;border-radius:12px;padding:14px;font-size:.9rem;margin-top:16px}
+
+/* Fields */
+.field{display:flex;flex-direction:column;gap:4px;margin-bottom:12px;min-width:0}
+.field label{font-size:.8rem;color:var(--muted);font-weight:500}
+.field input[type=text],.field input[type=email],.field input[type=password],.field input[type=number],.field select{padding:10px 12px;border:1px solid var(--line);border-radius:10px;background:#fff;width:100%}
+.field textarea{padding:10px 12px;border:1px solid var(--line);border-radius:10px;background:#fff;width:100%;min-height:120px;resize:vertical;line-height:1.5}
+.field small{color:var(--muted);font-size:.78rem}
+.check{display:flex;align-items:center;gap:8px;cursor:pointer}
+.check input{width:18px;height:18px;accent-color:var(--sage)}
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:0 14px}
+.grid3{display:grid;grid-template-columns:repeat(3,1fr);gap:0 14px}
+
+/* App */
+header.top{background:rgba(255,255,255,.95);border-bottom:1px solid var(--line);position:sticky;top:0;z-index:10}
+.top-in{max-width:1000px;margin:0 auto;padding:12px 20px;display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap}
+.brand{font-family:var(--serif);font-weight:600;font-size:1.15rem}
+.brand span{color:var(--gold)}
+.who{display:flex;align-items:center;gap:12px;color:var(--muted);font-size:.85rem;flex-wrap:wrap}
+main{max-width:1000px;margin:0 auto;padding:24px 20px 80px}
+.bar{display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap;margin-bottom:18px}
+.tabs{display:flex;gap:6px}
+.tab{border:1px solid var(--line);background:#fff;padding:8px 18px;border-radius:999px;cursor:pointer;font-weight:500}
+.tab.on{background:var(--sage);border-color:var(--sage);color:#fff}
+.list{display:flex;flex-direction:column;gap:10px}
+.item{background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:12px;display:grid;grid-template-columns:84px 1fr auto;gap:14px;align-items:center}
+.item.hidden-item{opacity:.65}
+.thumb{width:84px;height:64px;border-radius:10px;background:linear-gradient(135deg,var(--sky),var(--sage-soft));object-fit:cover;display:block}
+.info{min-width:0}
+.info h3{font-size:.98rem;font-weight:600;overflow-wrap:anywhere}
+.info .meta{font-size:.84rem;color:var(--muted);overflow-wrap:anywhere}
+.chips{display:flex;gap:6px;margin-top:4px;flex-wrap:wrap}
+.chip{font-size:.72rem;font-weight:600;padding:2px 10px;border-radius:999px;background:var(--sage-soft);color:var(--sage)}
+.chip.red{background:#FBE9E6;color:var(--red)}
+.chip.gray{background:#EEF1F3;color:var(--muted)}
+.actions{display:flex;gap:6px;flex-wrap:wrap;justify-content:flex-end;max-width:330px}
+.empty{text-align:center;color:var(--muted);padding:50px 0;background:#fff;border:1px dashed var(--line);border-radius:14px}
+
+/* Dialog */
+dialog{border:0;border-radius:20px;padding:0;width:min(680px,calc(100vw - 24px));max-height:calc(100vh - 24px);box-shadow:0 30px 70px rgba(20,40,60,.3);background:var(--surface);color:var(--ink)}
+dialog::backdrop{background:rgba(20,40,60,.45)}
+.dlg-head{padding:18px 22px;border-bottom:1px solid var(--line);display:flex;justify-content:space-between;align-items:center;position:sticky;top:0;background:var(--surface)}
+.dlg-head h2{font-family:var(--serif);font-size:1.2rem}
+.dlg-body{padding:18px 22px;overflow:auto;max-height:calc(100vh - 170px)}
+.dlg-foot{padding:14px 22px;border-top:1px solid var(--line);display:flex;justify-content:flex-end;gap:10px;position:sticky;bottom:0;background:var(--surface)}
+.sect{font-family:var(--serif);font-size:.95rem;margin:14px 0 10px;color:var(--gold)}
+.gallery{display:grid;grid-template-columns:repeat(auto-fill,minmax(110px,1fr));gap:10px;margin-bottom:12px}
+.gallery:empty{display:none}
+.ph{position:relative;border-radius:10px;overflow:hidden;border:2px solid var(--line);background:var(--sky);aspect-ratio:4/3}
+.ph.main{border-color:var(--gold)}
+.ph img{width:100%;height:100%;object-fit:cover;display:block}
+.ph .x{position:absolute;top:4px;right:4px;width:24px;height:24px;border-radius:50%;border:0;background:rgba(255,255,255,.95);color:var(--red);font-weight:700;cursor:pointer;line-height:1}
+.ph .tag{position:absolute;left:4px;bottom:4px;font-size:.68rem;font-weight:600;background:var(--gold);color:#fff;padding:2px 8px;border-radius:999px}
+.ph .mk{position:absolute;left:4px;bottom:4px;font-size:.68rem;font-weight:600;background:rgba(255,255,255,.95);color:var(--sage);padding:2px 8px;border-radius:999px;border:0;cursor:pointer}
+.urlrow{display:flex;gap:8px}
+.preview{width:160px;height:120px;object-fit:cover;border-radius:10px;border:1px solid var(--line);background:var(--sky);display:block;margin-bottom:8px}
+.amen{display:flex;gap:14px;flex-wrap:wrap}
+.toast{position:fixed;left:50%;bottom:24px;transform:translateX(-50%);background:var(--ink);color:#fff;padding:12px 20px;border-radius:12px;z-index:100;max-width:90vw}
+.toast.bad{background:var(--red)}
+
+@media(max-width:640px){
+  .item{grid-template-columns:64px 1fr}
+  .thumb{width:64px;height:50px}
+  .actions{grid-column:1/-1;justify-content:flex-start;max-width:none}
+  .grid2,.grid3{grid-template-columns:1fr}
+}
+</style>
+</head>
+<body>
+
+<!-- შესვლა -->
+<div class="login-wrap" id="loginView" hidden>
+  <form class="login" id="loginForm">
+    <h1>ადმინ-პანელი</h1>
+    <p class="sub">PRIME PROPERTIES. შესვლა მხოლოდ ადმინისტრატორისთვის.</p>
+    <div class="field"><label for="email">ელფოსტა</label><input type="email" id="email" autocomplete="username" required></div>
+    <div class="field"><label for="password">პაროლი</label><input type="password" id="password" autocomplete="current-password" required></div>
+    <button class="btn" type="submit" id="loginBtn" style="width:100%">შესვლა</button>
+    <p class="err" id="loginErr" role="alert"></p>
+    <div class="notice" id="notConfigured" hidden>ბაზა ჯერ არ არის დაკავშირებული. გახსენით <b>config.js</b> და ჩაწერეთ Supabase-ის მისამართი და გასაღები.</div>
+  </form>
+</div>
+
+<!-- პანელი -->
+<div id="appView" hidden>
+  <header class="top"><div class="top-in">
+    <div class="brand"><span>PRIME</span> PROPERTIES · ადმინ-პანელი</div>
+    <div class="who"><span id="who"></span><a class="btn ghost small" href="seal.html" target="_blank" rel="noopener">საიტის ნახვა</a><button class="btn ghost small" id="logout" type="button">გასვლა</button></div>
+  </div></header>
+
+  <main>
+    <div class="bar">
+      <div class="tabs" id="tabs">
+        <button class="tab on" data-kind="sale" type="button"></button>
+        <button class="tab" data-kind="rent" type="button"></button>
+      </div>
+      <button class="btn" id="addBtn" type="button">+ ახალი ობიექტი</button>
+    </div>
+    <div class="list" id="list"></div>
+  </main>
+</div>
+
+<!-- ფორმა -->
+<dialog id="dlg">
+  <form id="form" method="dialog" novalidate>
+    <div class="dlg-head"><h2 id="dlgTitle">ახალი ობიექტი</h2><button class="btn ghost small" type="button" id="closeDlg">დახურვა</button></div>
+    <div class="dlg-body">
+      <div class="sect">ძირითადი</div>
+      <div class="grid2">
+        <div class="field"><label for="f-name-ka">სახელი ქართულად *</label><input type="text" id="f-name-ka"></div>
+        <div class="field"><label for="f-name-en">სახელი ინგლისურად</label><input type="text" id="f-name-en"></div>
+        <div class="field"><label for="f-place">ადგილი ინგლისურად *</label><input type="text" id="f-place" placeholder="Tbilisi"><small>ერთი და იგივე ქალაქი ყოველთვის ერთნაირად დაწერეთ.</small></div>
+        <div class="field"><label for="f-place-ka">ადგილი ქართულად</label><input type="text" id="f-place-ka" placeholder="თბილისი"></div>
+      </div>
+      <div class="field"><label for="f-phone">ტელეფონის ნომერი (გამოჩნდება ობიექტის გვერდზე)</label><input type="text" id="f-phone" placeholder="+995 5XX XX XX XX"><small>ნომერი სასურველია საერთაშორისო ფორმატით (+995...), რომ WhatsApp-იც სწორად გაიხსნას.</small></div>
+      <div id="mainNums">
+        <div class="field"><label for="f-price">ფასი ($)</label><input type="number" id="f-price" min="0" step="1"><small>0 ნიშნავს „ფასი მოთხოვნით“.</small></div>
+        <div class="grid3">
+          <div class="field"><label for="f-s-rooms">ოთახების რაოდენობა</label><input type="number" id="f-s-rooms" min="0" step="1"></div>
+          <div class="field"><label for="f-beds">საძინებელი</label><input type="number" id="f-beds" min="0" step="1"></div>
+          <div class="field"><label for="f-baths">სველი წერტილები</label><input type="number" id="f-baths" min="0" step="1"></div>
+        </div>
+      </div>
+
+      <div id="saleFields">
+        <div class="sect">გასაყიდი ობიექტის დეტალები</div>
+        <div class="grid2">
+          <div class="field"><label for="f-code">კოდი</label><input type="text" id="f-code" placeholder="TB 001"></div>
+          <div class="field"><label for="f-area">ფართი (მ²)</label><input type="number" id="f-area" min="0" step="1"></div>
+        </div>
+        <div class="field"><label for="f-land">მიწის ფართი</label><input type="text" id="f-land" placeholder="600 m² ან 1 ha"><small>დაწერეთ ინგლისური ერთეულებით: m² ან ha. ქართულ ვერსიაში თავისით გადაითარგმნება.</small></div>
+        <div class="field"><label for="f-s-desc">აღწერა ქართულად</label><textarea id="f-s-desc" style="min-height:90px" placeholder="მოკლე აღწერა ობიექტის შესახებ..."></textarea></div>
+        <div class="field"><label for="f-s-desc-en">აღწერა ინგლისურად</label><textarea id="f-s-desc-en" style="min-height:90px" placeholder="Short description in English..."></textarea><small>ინგლისური ვერსია გამოჩნდება, როცა სტუმარი EN ღილაკს დააჭერს. თუ ცარიელია, ქართული გამოჩნდება.</small></div>
+        <div class="amen">
+          <label class="check"><input type="checkbox" id="f-pool"> აუზი</label>
+          <label class="check"><input type="checkbox" id="f-sold"> გაყიდულია</label>
+        </div>
+      </div>
+
+      <div id="rentFields">
+        <div class="sect">გასაქირავებელი ობიექტის დეტალები</div>
+        <div class="field"><label for="f-usd">ფასი ($)</label><input type="number" id="f-usd" min="0" step="1" placeholder="მაგ. 500"></div>
+        <div class="grid3">
+          <div class="field"><label for="f-r-area">ფართი (მ²)</label><input type="number" id="f-r-area" min="0" step="1"></div>
+          <div class="field"><label for="f-rooms">ოთახი</label><input type="number" id="f-rooms" min="0" step="1"></div>
+          <div class="field"><label for="f-floor">სართული</label><input type="text" id="f-floor" placeholder="მაგ. 3"></div>
+        </div>
+        <div class="field"><label>კეთილმოწყობა</label>
+          <div class="amen" id="amenBox">
+            <label class="check"><input type="checkbox" value="garden"> ბაღი</label>
+            <label class="check"><input type="checkbox" value="wifi"> Wi-Fi</label>
+            <label class="check"><input type="checkbox" value="pool"> აუზი</label>
+            <label class="check"><input type="checkbox" value="ac"> კონდიციონერი</label>
+          </div>
+        </div>
+        <div class="field"><label for="f-desc">აღწერილობა ქართულად</label><textarea id="f-desc" placeholder="დამატებითი ინფორმაცია ობიექტის შესახებ..."></textarea></div>
+        <div class="field"><label for="f-desc-en">აღწერილობა ინგლისურად</label><textarea id="f-desc-en" placeholder="Additional information in English..."></textarea><small>ინგლისური ვერსია გამოჩნდება, როცა სტუმარი EN ღილაკს დააჭერს. თუ ცარიელია, ქართული გამოჩნდება.</small></div>
+      </div>
+
+      <div class="sect">ფოტო</div>
+      <div class="gallery" id="gallery"></div>
+      <div class="field"><label for="f-file">ატვირთეთ ფოტოები კომპიუტერიდან</label><input type="file" id="f-file" accept="image/*" multiple><small>შეგიძლიათ ერთდროულად რამდენიმე ფოტოს არჩევა. პირველი ფოტო მთავარია. ფოტოები ავტომატურად შემცირდება (მაქს. 1600 პიქსელი), რომ საიტი სწრაფი იყოს.</small></div>
+      <div class="field"><label for="f-img">ან ჩაწერეთ ფოტოს მისამართი</label><div class="urlrow"><input type="text" id="f-img" placeholder="https://..."><button class="btn ghost" type="button" id="addUrl">დამატება</button></div></div>
+
+      <div class="sect">ხილვადობა</div>
+      <label class="check"><input type="checkbox" id="f-published" checked> გამოჩნდეს საიტზე</label>
+      <p class="err" id="formErr" role="alert"></p>
+    </div>
+    <div class="dlg-foot">
+      <button class="btn ghost" type="button" id="cancelBtn">გაუქმება</button>
+      <button class="btn" type="submit" id="saveBtn">შენახვა</button>
+    </div>
+  </form>
+</dialog>
+
+<div class="toast" id="toast" hidden></div>
+
+<script src="config.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script>
+const $ = id => document.getElementById(id);
+const esc = s => String(s == null ? '' : s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
+const configured = typeof SUPABASE_URL === 'string' && SUPABASE_URL.indexOf('YOUR-PROJECT') === -1 &&
+                   typeof SUPABASE_ANON_KEY === 'string' && SUPABASE_ANON_KEY.indexOf('YOUR-ANON') === -1;
+const BUCKET = 'listing-images';
+
+let sb = null, rows = [], kind = 'sale', editing = null;
+
+function toast(msg, bad) {
+  const t = $('toast');
+  t.textContent = msg; t.className = 'toast' + (bad ? ' bad' : ''); t.hidden = false;
+  clearTimeout(toast.h); toast.h = setTimeout(() => { t.hidden = true; }, bad ? 6000 : 2600);
+}
+const money = n => '$' + Number(n || 0).toLocaleString('en-US');
+
+/* ---------- შესვლა / გასვლა ---------- */
+function showLogin() { $('appView').hidden = true; $('loginView').hidden = false; $('notConfigured').hidden = configured; }
+async function showApp(session) {
+  $('loginView').hidden = true; $('appView').hidden = false;
+  $('who').textContent = session.user.email;
+  await loadRows();
+}
+
+$('loginForm').addEventListener('submit', async e => {
+  e.preventDefault();
+  $('loginErr').textContent = '';
+  if (!configured || !sb) { $('notConfigured').hidden = false; return; }
+  $('loginBtn').disabled = true;
+  const { error } = await sb.auth.signInWithPassword({ email: $('email').value.trim(), password: $('password').value });
+  $('loginBtn').disabled = false;
+  if (error) {
+    const m = (error.message || '').toLowerCase();
+    let why = 'ელფოსტა ან პაროლი არასწორია.';
+    if (m.indexOf('not confirmed') > -1) why = 'ელფოსტა დადასტურებული არ არის. Supabase-ში Authentication → Users-ში გახსენით მომხმარებელი და დაადასტურეთ, ან ხელახლა შექმენით „Auto Confirm User“-ით.';
+    else if (m.indexOf('invalid login') === -1) why = 'კავშირის პრობლემაა (' + error.message + '). შეამოწმეთ config.js-ში URL და გასაღები.';
+    $('loginErr').textContent = 'შესვლა ვერ მოხერხდა: ' + why;
+  }
+});
+$('logout').addEventListener('click', async () => { await sb.auth.signOut(); });
+
+/* ---------- სია ---------- */
+async function loadRows() {
+  const { data, error } = await sb.from('listings').select('*').order('created_at', { ascending: false });
+  if (error) {
+    rows = []; renderList();
+    $('list').innerHTML = '<div class="empty" style="color:#C9594B">სიის ჩატვირთვა ვერ მოხერხდა:<br><b>' + esc(error.message) + '</b>' +
+      (error.hint ? '<br>' + esc(error.hint) : '') + '<br><br><span style="color:#64768A">გადაუღეთ ეს ტექსტი ეკრანის სურათს და გამოგვიგზავნეთ.</span></div>';
+    return;
+  }
+  rows = data || [];
+  renderList();
+}
+
+function renderList() {
+  const nSale = rows.filter(r => r.kind === 'sale').length, nRent = rows.filter(r => r.kind === 'rent').length;
+  document.querySelector('.tab[data-kind="sale"]').textContent = 'გასაყიდი (' + nSale + ')';
+  document.querySelector('.tab[data-kind="rent"]').textContent = 'გასაქირავებელი (' + nRent + ')';
+  document.querySelectorAll('.tab').forEach(b => b.classList.toggle('on', b.dataset.kind === kind));
+
+  const list = rows.filter(r => r.kind === kind);
+  $('list').innerHTML = list.length ? list.map(r => {
+    const name = r.name_ka || r.name_en || '(უსახელო)';
+    const place = r.place_ka || r.place;
+    const meta = kind === 'sale'
+      ? [place, r.price ? money(r.price) : 'ფასი მოთხოვნით', r.code ? 'კოდი ' + r.code : ''].filter(Boolean)
+      : [place, r.price_usd ? '$' + Number(r.price_usd).toLocaleString('en-US') : '', r.area ? r.area + ' მ²' : '', r.rooms ? r.rooms + ' ოთახი' : '', r.floor ? r.floor + ' სართ.' : ''].filter(Boolean);
+    return `<div class="item ${r.published ? '' : 'hidden-item'}" data-id="${r.id}">
+      ${r.img ? `<img class="thumb" src="${esc(r.img)}" alt="" loading="lazy" onerror="this.removeAttribute('src')">` : '<div class="thumb"></div>'}
+      <div class="info"><h3>${esc(name)}</h3><div class="meta">${esc(meta.join(' · '))}</div>
+        <div class="chips">${r.sold ? '<span class="chip red">გაყიდულია</span>' : ''}${r.published ? '' : '<span class="chip gray">დამალულია</span>'}${r.pool ? '<span class="chip">აუზი</span>' : ''}</div></div>
+      <div class="actions">
+        <button class="btn ghost small" data-act="edit" type="button">რედაქტირება</button>
+        ${kind === 'sale' ? `<button class="btn ghost small" data-act="sold" type="button">${r.sold ? 'გაყიდულის გაუქმება' : 'გაყიდულად მონიშვნა'}</button>` : ''}
+        <button class="btn ghost small" data-act="pub" type="button">${r.published ? 'დამალვა' : 'გამოჩენა'}</button>
+        <button class="btn danger small" data-act="del" type="button">წაშლა</button>
+      </div></div>`;
+  }).join('') : '<div class="empty">ამ განყოფილებაში ობიექტები ჯერ არ არის. დააჭირეთ „+ ახალი ობიექტი“.</div>';
+}
+
+$('tabs').addEventListener('click', e => { const b = e.target.closest('.tab'); if (b) { kind = b.dataset.kind; renderList(); } });
+
+$('list').addEventListener('click', async e => {
+  const btn = e.target.closest('button[data-act]'); if (!btn) return;
+  const id = +btn.closest('.item').dataset.id;
+  const r = rows.find(x => x.id === id); if (!r) return;
+  const act = btn.dataset.act;
+  if (act === 'edit') return openForm(r);
+  if (act === 'del') return removeRow(r);
+  const patch = act === 'sold' ? { sold: !r.sold } : { published: !r.published };
+  btn.disabled = true;
+  const { data, error } = await sb.from('listings').update(patch).eq('id', id).select();
+  btn.disabled = false;
+  if (error || !data || !data.length) return toast('ცვლილება ვერ შეინახა' + (error ? ': ' + error.message : ' (უფლება არ გაქვთ).'), true);
+  Object.assign(r, data[0]); renderList(); toast('შენახულია');
+});
+
+async function removeRow(r) {
+  if (!confirm('წავშალო „' + (r.name_ka || r.name_en || 'ობიექტი') + '“? ამის დაბრუნება შეუძლებელია.\n\n(თუ მხოლოდ დროებით დამალვა გინდათ, გამოიყენეთ „დამალვა“.)')) return;
+  const { data, error } = await sb.from('listings').delete().eq('id', r.id).select();
+  if (error || !data || !data.length) return toast('წაშლა ვერ მოხერხდა' + (error ? ': ' + error.message : ' (უფლება არ გაქვთ).'), true);
+  removeStored([...(r.images || []), r.img].filter(Boolean));   // ატვირთული ფოტოებიც იშლება
+  rows = rows.filter(x => x.id !== r.id); renderList(); toast('წაიშალა');
+}
+
+/* ---------- ფორმა ---------- */
+let photos = [];          // [{url} ან {file, url: blob-მისამართი}]
+let originalUrls = [];
+function removeStored(urls) {
+  const paths = [...new Set(urls)].map(u => (u || '').split('/' + BUCKET + '/')[1]).filter(Boolean).map(decodeURIComponent);
+  if (paths.length) sb.storage.from(BUCKET).remove(paths);
+}
+function renderGallery() {
+  const g = $('gallery'); g.innerHTML = '';
+  photos.forEach((ph, i) => {
+    const d = document.createElement('div'); d.className = 'ph' + (i === 0 ? ' main' : '');
+    const im = document.createElement('img'); im.src = ph.url; im.alt = ''; im.onerror = () => im.removeAttribute('src'); d.appendChild(im);
+    const x = document.createElement('button'); x.type = 'button'; x.className = 'x'; x.textContent = '×'; x.title = 'წაშლა';
+    x.onclick = () => { photos.splice(i, 1); renderGallery(); }; d.appendChild(x);
+    if (i === 0) { const t = document.createElement('span'); t.className = 'tag'; t.textContent = 'მთავარი'; d.appendChild(t); }
+    else { const b = document.createElement('button'); b.type = 'button'; b.className = 'mk'; b.textContent = 'მთავარად';
+      b.onclick = () => { photos.unshift(photos.splice(i, 1)[0]); renderGallery(); }; d.appendChild(b); }
+    g.appendChild(d);
+  });
+}
+
+function openForm(r) {
+  editing = r || null;
+  const isSale = kind === 'sale';
+  $('dlgTitle').textContent = (r ? 'ობიექტის რედაქტირება' : 'ახალი ობიექტი') + ' · ' + (isSale ? 'გასაყიდი' : 'გასაქირავებელი');
+  $('saleFields').hidden = !isSale; $('rentFields').hidden = isSale; $('mainNums').hidden = !isSale;
+  const d = r || {};
+  $('f-name-ka').value = d.name_ka || ''; $('f-name-en').value = d.name_en || '';
+  $('f-phone').value = d.phone || '';
+  $('f-place').value = d.place || ''; $('f-place-ka').value = d.place_ka || '';
+  $('f-price').value = d.price != null ? d.price : ''; $('f-beds').value = d.beds != null ? d.beds : '';
+  $('f-code').value = d.code || ''; $('f-area').value = d.area != null ? d.area : ''; $('f-baths').value = d.baths != null ? d.baths : '';
+  $('f-land').value = d.land || ''; $('f-pool').checked = !!d.pool; $('f-sold').checked = !!d.sold;
+  $('f-s-rooms').value = d.rooms != null ? d.rooms : ''; $('f-s-desc').value = d.description || ''; $('f-s-desc-en').value = d.description_en || ''; $('f-desc-en').value = d.description_en || '';
+  $('f-usd').value = d.price_usd != null ? d.price_usd : ''; $('f-r-area').value = d.area != null ? d.area : ''; $('f-rooms').value = d.rooms != null ? d.rooms : '';
+  $('f-floor').value = d.floor || ''; $('f-desc').value = d.description || '';
+  document.querySelectorAll('#amenBox input').forEach(i => { i.checked = (d.amenities || []).includes(i.value); });
+  $('f-img').value = ''; $('f-file').value = '';
+  originalUrls = (d.images && d.images.length ? d.images : (d.img ? [d.img] : [])).slice();
+  photos = originalUrls.map(u => ({ url: u })); renderGallery();
+  $('f-published').checked = r ? !!d.published : true;
+  $('formErr').textContent = '';
+  $('dlg').showModal();
+}
+$('addBtn').addEventListener('click', () => openForm(null));
+$('closeDlg').addEventListener('click', () => $('dlg').close());
+$('cancelBtn').addEventListener('click', () => $('dlg').close());
+$('f-file').addEventListener('change', () => {
+  [...$('f-file').files].forEach(f => photos.push({ file: f, url: URL.createObjectURL(f) }));
+  $('f-file').value = ''; renderGallery();
+});
+function addUrlPhoto() { const u = $('f-img').value.trim(); if (!u) return; photos.push({ url: u }); $('f-img').value = ''; renderGallery(); }
+$('addUrl').addEventListener('click', addUrlPhoto);
+$('f-img').addEventListener('keydown', e => { if (e.key === 'Enter') { e.preventDefault(); addUrlPhoto(); } });
+
+/* ფოტოს შემცირება ატვირთვამდე */
+async function shrink(file, maxW) {
+  try {
+    const bmp = await createImageBitmap(file);
+    const k = Math.min(1, maxW / bmp.width);
+    const c = document.createElement('canvas');
+    c.width = Math.round(bmp.width * k); c.height = Math.round(bmp.height * k);
+    c.getContext('2d').drawImage(bmp, 0, 0, c.width, c.height);
+    const blob = await new Promise(res => c.toBlob(res, 'image/jpeg', 0.85));
+    return blob ? { blob, type: 'image/jpeg', ext: 'jpg' } : null;
+  } catch (e) { return null; }
+}
+async function uploadPhoto(file) {
+  const s = await shrink(file, 1600);
+  const ext = s ? s.ext : ((file.name.split('.').pop() || 'jpg').toLowerCase().replace(/[^a-z0-9]/g, '') || 'jpg');
+  const path = kind + '/' + Date.now() + '-' + Math.random().toString(36).slice(2, 8) + '.' + ext;
+  const { error } = await sb.storage.from(BUCKET).upload(path, s ? s.blob : file, { contentType: s ? s.type : file.type, upsert: false });
+  if (error) throw new Error('ფოტოს ატვირთვა ვერ მოხერხდა: ' + error.message);
+  return sb.storage.from(BUCKET).getPublicUrl(path).data.publicUrl;
+}
+
+const val = id => $(id).value.trim();
+const intOrNull = id => { const v = val(id); return v === '' ? null : Math.max(0, Math.round(Number(v))); };
+
+$('form').addEventListener('submit', async e => {
+  e.preventDefault();
+  const isSale = kind === 'sale';
+  const err = m => { $('formErr').textContent = m; };
+  err('');
+  if (!val('f-name-ka') && !val('f-name-en')) return err('ჩაწერეთ ობიექტის სახელი (ქართულად ან ინგლისურად).');
+  if (!val('f-place')) return err('ჩაწერეთ ადგილი ინგლისურად (მაგ. Tbilisi).');
+  const price = isSale ? Number(val('f-price') || 0) : (editing ? Number(editing.price) || 0 : 0);
+  if (isNaN(price) || price < 0) return err('ფასი უნდა იყოს დადებითი რიცხვი.');
+
+  const p = {
+    kind, published: $('f-published').checked,
+    name_ka: val('f-name-ka') || null, name_en: val('f-name-en') || null,
+    place: val('f-place'), place_ka: val('f-place-ka') || null,
+    phone: val('f-phone') || null,
+    price, beds: isSale ? (intOrNull('f-beds') || 0) : (editing ? editing.beds || 0 : 0), img: null, images: [],
+    code: null, area: null, land: null, baths: null, pool: false, sold: false,
+    guests: null, amenities: []
+  };
+  if (isSale) {
+    Object.assign(p, { code: val('f-code') || null, area: intOrNull('f-area'), land: val('f-land') || null,
+      baths: intOrNull('f-baths') || 0, pool: $('f-pool').checked, sold: $('f-sold').checked, type: null, tag: null,
+      rooms: intOrNull('f-s-rooms'), description: val('f-s-desc') || null, description_en: val('f-s-desc-en') || null });
+  } else {
+    Object.assign(p, { price_usd: intOrNull('f-usd'), area: intOrNull('f-r-area'), rooms: intOrNull('f-rooms'), floor: val('f-floor') || null,
+      description: val('f-desc') || null, description_en: val('f-desc-en') || null, guests: editing ? editing.guests : null,
+      amenities: [...document.querySelectorAll('#amenBox input:checked')].map(i => i.value) });
+  }
+
+  $('saveBtn').disabled = true; $('saveBtn').textContent = 'ინახება...';
+  try {
+    if (val('f-img')) photos.push({ url: val('f-img') });   // ჩაუმატებელი მისამართიც არ დაიკარგოს
+    const urls = [];
+    for (const ph of photos) urls.push(ph.file ? await uploadPhoto(ph.file) : ph.url);
+    p.images = urls; p.img = urls[0] || null;
+    const q = editing ? sb.from('listings').update(p).eq('id', editing.id) : sb.from('listings').insert(p);
+    const { data, error } = await q.select();
+    if (error) throw new Error(error.message);
+    if (!data || !data.length) throw new Error('შენახვის უფლება არ გაქვთ. შეამოწმეთ setup.sql-ში ჩაწერილი ელფოსტა.');
+    removeStored(originalUrls.filter(u => !urls.includes(u)));   // ამოშლილი ფოტოები საცავიდანაც იშლება
+    $('dlg').close();
+    await loadRows();
+    toast(editing ? 'ცვლილებები შენახულია' : 'ობიექტი დაემატა');
+  } catch (ex) {
+    err(ex.message);
+  } finally {
+    $('saveBtn').disabled = false; $('saveBtn').textContent = 'შენახვა';
+  }
+});
+
+/* ---------- დაწყება ---------- */
+(function init() {
+  if (!configured || typeof supabase === 'undefined') { showLogin(); if (configured) $('loginErr').textContent = 'Supabase-ის ბიბლიოთეკა ვერ ჩაიტვირთა. შეამოწმეთ ინტერნეტი.'; return; }
+  sb = supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+  sb.auth.onAuthStateChange((evt, session) => {
+    if (evt === 'TOKEN_REFRESHED') return;
+    // setTimeout: Supabase-ის ბიბლიოთეკის დოკუმენტაცია არ რეკომენდებს მის გამოძახებას ამ ფუნქციის შიგნით პირდაპირ
+    setTimeout(() => { if (session) showApp(session); else showLogin(); }, 0);
+  });
+  sb.auth.getSession().then(({ data }) => { if (!data.session) showLogin(); });
+})();
+</script>
+</body>
+</html>

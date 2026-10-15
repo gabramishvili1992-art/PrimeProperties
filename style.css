@@ -1,0 +1,352 @@
+/* Global Reset & Base Fonts */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Montserrat', sans-serif;
+    color: #333333;
+    background-color: #fdfbf7;
+    line-height: 1.6;
+}
+
+h1, h2, h3 {
+    font-family: 'Cormorant Garamond', serif;
+    font-weight: 600;
+}
+
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 80px 20px;
+}
+
+.bg-light {
+    background-color: #f4efe6;
+}
+
+.section-title {
+    text-align: center;
+    font-size: 2.5rem;
+    margin-bottom: 40px;
+    color: #2c3e50;
+    letter-spacing: 1px;
+}
+
+/* Navbar */
+.navbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px 40px;
+    background-color: rgba(255, 255, 255, 0.95);
+    position: fixed;
+    top: 0;
+    width: 100%;
+    z-index: 1000;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+}
+
+.logo {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.8rem;
+    font-weight: 600;
+    letter-spacing: 2px;
+    color: #1a252f;
+}
+
+.nav-links a {
+    text-decoration: none;
+    color: #555555;
+    margin-left: 25px;
+    font-size: 0.9rem;
+    font-weight: 500;
+    transition: color 0.3s;
+}
+
+.nav-links a:hover {
+    color: #8b5a2b;
+}
+
+.btn-nav {
+    border: 1px solid #8b5a2b;
+    padding: 8px 16px;
+    border-radius: 20px;
+    color: #8b5a2b !important;
+}
+
+/* Hero Section */
+.hero {
+    height: 100vh;
+    /* ოდნავ უფრო მუქი ფენა, რომ ტექსტი ფოტოს ფონზე მკაფიოდ გამოჩნდეს */
+    background:
+        linear-gradient(rgba(10, 18, 24, 0.48), rgba(10, 18, 24, 0.48)),
+        url('tbilisi.png') center/cover no-repeat;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    color: #ffffff;
+    padding: 0 20px;
+}
+
+.hero-content {
+    width: 100%;
+    max-width: 1200px;
+}
+
+.hero-content h1 {
+    color: #dbf2f8;
+    font-size: 3.5rem;
+    line-height: 1.2;
+    margin-bottom: 18px;
+    /* მუქი ჩრდილი ზრდის სათაურის კონტრასტს */
+    text-shadow: 2px 3px 8px rgba(0, 0, 0, 0.9);
+}
+
+.hero-content p {
+    color: #ffffff;
+    font-size: 1.2rem;
+    line-height: 1.6;
+    margin-bottom: 30px;
+    font-weight: 400;
+    text-shadow: 1px 2px 6px rgba(0, 0, 0, 0.95);
+}
+
+/* Hero Buttons Container */
+.hero-buttons {
+    display: flex;
+    gap: 20px;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+}
+
+/* Primary Button Base Styles */
+.btn-primary {
+    display: inline-block;
+    padding: 18px 60px;
+    font-size: 2rem;
+    font-weight: 600;
+    text-decoration: none;
+    border-radius: 0;               /* კვადრატული/ოთხკუთხედი ფორმა */
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
+}
+
+/* ყიდვის ღილაკი */
+.btn-sell {
+    background-color: #f8a558;
+    color: #ffffff;
+    border: 2px solid #2b2b2b;
+}
+
+.btn-sell:hover {
+    background-color: #D8C9A3;
+    border-color: #D8C9A3;
+    color: #333333;
+}
+
+/* გაქირავების ღილაკი */
+.btn-rent {
+    background-color: #2c3e50;
+    color: #ffffff;
+    border: 2px solid #e0b668;
+}
+
+.btn-rent:hover {
+    background-color: #1a252f;
+    border-color: #1a252f;
+}
+
+/* Cards / Catalog */
+.card-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+    gap: 30px;
+}
+
+.card {
+    background: #ffffff;
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.06);
+    transition: transform 0.3s ease;
+}
+
+.card:hover {
+    transform: translateY(-5px);
+}
+
+.card-img {
+    height: 240px;
+    background-size: cover;
+    background-position: center;
+}
+
+.card-body {
+    padding: 25px;
+}
+
+.card-body h3 {
+    font-size: 1.6rem;
+    margin-bottom: 5px;
+}
+
+.location {
+    font-size: 0.85rem;
+    color: #888888;
+    margin-bottom: 15px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.description {
+    font-size: 0.95rem;
+    color: #666666;
+    margin-bottom: 20px;
+}
+
+.card-footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-top: 1px solid #eeeeee;
+    padding-top: 15px;
+}
+
+.price {
+    font-weight: 600;
+    color: #8b5a2b;
+}
+
+.btn-secondary {
+    background: none;
+    border: 1px solid #C6B58A;
+    padding: 6px 14px;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: all 0.3s;
+}
+
+.btn-secondary:hover {
+    border-color: #8b5a2b;
+    color: #8b5a2b;
+}
+
+/* Services Section */
+.services-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 30px;
+    text-align: center;
+}
+
+.service-item {
+    background: #ffffff;
+    padding: 40px 20px;
+    border-radius: 8px;
+    border: 1px solid #eae0d0;
+}
+
+.service-item h3 {
+    font-size: 1.8rem;
+    margin-bottom: 15px;
+    color: #2c3e50;
+}
+
+/* Contact Form */
+.contact-form {
+    max-width: 600px;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.contact-form input, 
+.contact-form textarea {
+    width: 100%;
+    padding: 12px 15px;
+    border: 1px solid #dddddd;
+    border-radius: 4px;
+    font-family: inherit;
+    font-size: 0.95rem;
+}
+
+.contact-form input:focus, 
+.contact-form textarea:focus {
+    outline: none;
+    border-color: #8b5a2b;
+}
+
+/* Footer */
+footer {
+    text-align: center;
+    padding: 30px;
+    background-color: #1a252f;
+    color: #aaaaaa;
+    font-size: 0.85rem;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .hero-content h1 {
+        font-size: 2.2rem;
+        line-height: 1.25;
+    }
+
+    .hero-content p {
+        font-size: 1rem;
+    }
+    .navbar {
+        flex-direction: column;
+        gap: 10px;
+    }
+    .nav-links a {
+        margin: 0 10px;
+    }
+}/* Language Switcher Styles */
+.nav-links {
+    display: flex;
+    align-items: center;
+}
+
+.lang-switch {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    margin-left: 25px;
+}
+
+.lang-btn {
+    background: none;
+    border: none;
+    color: #555555;
+    font-size: 0.85rem;
+    font-weight: 600;
+    cursor: pointer;
+    opacity: 0.6;
+    transition: all 0.3s ease;
+    padding: 2px 4px;
+    font-family: 'Montserrat', sans-serif;
+}
+
+.lang-btn:hover {
+    opacity: 1;
+    color: #8b5a2b;
+}
+
+.lang-btn.active {
+    opacity: 1;
+    color: #8b5a2b;
+    border-bottom: 2px solid #8b5a2b;
+}
+
+.lang-divider {
+    color: #cccccc;
+    font-size: 0.8rem;
+}

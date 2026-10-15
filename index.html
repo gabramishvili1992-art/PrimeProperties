@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="ka">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PRIME PROPERTIES | Real Estate & Villa Rentals</title>
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;600&family=Montserrat:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <!-- Header / Navigation -->
+    <header class="navbar">
+        <div class="logo">PRIME PROPERTIES</div>
+        <nav class="nav-links">
+            <a href="services.html" data-i18n="nav_services">სერვისები</a>
+            <a href="about.html" data-i18n="nav_about">ჩვენ შესახებ</a>
+            <a href="#contact" class="btn-nav" data-i18n="nav_contact">კონტაქტი</a>
+
+            <!-- ენის გადართვის ღილაკები -->
+            <div class="lang-switch">
+                <button type="button" class="lang-btn active" onclick="changeLanguage('ka')">GEO</button>
+                <span class="lang-divider">|</span>
+                <button type="button" class="lang-btn" onclick="changeLanguage('en')">ENG</button>
+            </div>
+        </nav>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="hero-content">
+            <h1 data-i18n="hero_title">აღმოაჩინე შენი იდეალური დასასვენებელი ადგილი</h1>
+            <p data-i18n="hero_subtitle">ექსკლუზიური ვილები, პრემიუმ სერვისი და დაუვიწყარი შთაბეჭდილებები</p>
+            
+            <div class="hero-buttons">
+                <a href="seal.html" class="btn-primary btn-sell" target="_blank" data-i18n="btn_buy">ყიდვა</a>
+                <a href="rent.html" class="btn-primary btn-rent" target="_blank" data-i18n="btn_rent">გაქირავება</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <p data-i18n="footer_rights">&copy; 2026 PRIME PROPERTIES. ყველა უფლება დაცულია.</p>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>

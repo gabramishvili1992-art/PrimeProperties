@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="ka">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>ჩვენ შესახებ | PRIME PROPERTIES</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600&family=Inter:wght@400;500;600&family=Noto+Sans+Georgian:wght@400;500;600&family=Noto+Serif+Georgian:wght@500;600&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#F5F9FB; --surface:#fff; --ink:#1F2D3A; --muted:#64768A;
+  --sky:#DCEBF3; --sage:#5E8C7B; --sage-dark:#4C7666; --sage-soft:#E4F0EA; --gold:#B88A42; --line:#E1EAF0;
+  --serif:'Fraunces','Noto Serif Georgian',Georgia,serif;
+  --sans:'Inter','Noto Sans Georgian',system-ui,sans-serif;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:var(--sans);background:var(--bg);color:var(--ink);line-height:1.6}
+a{color:inherit;text-decoration:none}
+:focus-visible{outline:3px solid var(--gold);outline-offset:2px}
+
+/* Header */
+.site-header{background:rgba(255,255,255,.92);backdrop-filter:blur(8px);border-bottom:1px solid var(--line);position:sticky;top:0;z-index:20}
+.nav{max-width:1200px;margin:0 auto;padding:14px 24px;display:flex;align-items:center;justify-content:space-between;gap:16px}
+.logo{font-family:var(--serif);font-size:1.3rem;font-weight:600}
+.logo span{color:var(--gold)}
+.nav ul{display:flex;gap:24px;list-style:none;font-size:.93rem;font-weight:500}
+.nav ul a{padding:6px 0;border-bottom:2px solid transparent}
+.nav ul a:hover,.nav ul a.active{border-color:var(--gold)}
+.lang{display:flex;gap:4px}
+.lang button{border:1px solid var(--line);background:#fff;padding:5px 10px;border-radius:8px;font:inherit;font-size:.8rem;font-weight:600;cursor:pointer;color:var(--muted)}
+.lang button.on{background:var(--sage);border-color:var(--sage);color:#fff}
+.menu-btn{display:none;background:none;border:1px solid var(--line);border-radius:8px;padding:8px 12px;font-size:1rem;cursor:pointer}
+
+/* Hero */
+.hero{background:linear-gradient(180deg,var(--sky) 0%,var(--bg) 100%);padding:76px 24px 110px;text-align:center}
+.hero h1{font-family:var(--serif);font-weight:600;font-size:clamp(2rem,5vw,3.2rem);line-height:1.25;max-width:760px;margin:0 auto 14px}
+.hero p{color:var(--muted);font-size:1.1rem;max-width:720px;margin:0 auto}
+
+/* About */
+.about{max-width:1100px;margin:-64px auto 0;padding:0 24px 70px;position:relative;z-index:5}
+.lead{background:var(--surface);border:1px solid var(--line);border-radius:22px;padding:38px 40px;box-shadow:0 18px 40px rgba(60,100,130,.10);display:grid;grid-template-columns:auto 1fr;gap:28px;align-items:start}
+.lead .mark{width:64px;height:64px;border-radius:18px;background:var(--sage-soft);color:var(--sage);display:grid;place-items:center}
+.lead .mark svg{width:32px;height:32px}
+.lead h2{font-family:var(--serif);font-size:1.5rem;line-height:1.3;margin-bottom:12px}
+.lead p{color:var(--muted);font-size:1.02rem}
+.three{display:grid;grid-template-columns:repeat(3,1fr);gap:22px;margin-top:22px}
+.col{background:var(--surface);border:1px solid var(--line);border-radius:20px;padding:28px 24px 26px;transition:transform .25s,box-shadow .25s}
+.col:hover{transform:translateY(-4px);box-shadow:0 18px 38px rgba(60,100,130,.13)}
+.ico{width:50px;height:50px;border-radius:15px;background:var(--sage-soft);color:var(--sage);display:grid;place-items:center;margin-bottom:16px}
+.ico svg{width:26px;height:26px}
+.col h3{font-family:var(--serif);font-weight:600;font-size:1.2rem;line-height:1.3;margin-bottom:10px}
+.col p{color:var(--muted);font-size:.95rem}
+.quote{margin-top:22px;background:linear-gradient(135deg,var(--sage-soft),var(--sky));border-radius:20px;padding:30px 34px;border-left:5px solid var(--gold);font-family:var(--serif);font-size:1.2rem;line-height:1.5}
+
+.cta-band{background:var(--sky);padding:60px 24px;text-align:center}
+.cta-band h2{font-family:var(--serif);font-size:clamp(1.5rem,3.5vw,2.1rem);margin-bottom:8px}
+.cta-band p{color:var(--muted);margin-bottom:22px}
+.cta{display:inline-block;background:var(--sage);color:#fff;padding:13px 28px;border-radius:12px;font-weight:600;transition:background .2s}
+.cta:hover{background:var(--sage-dark)}
+
+/* Footer */
+footer{background:#fff;padding:44px 24px 24px;border-top:1px solid var(--line)}
+.foot-in{max-width:1200px;margin:0 auto;display:grid;grid-template-columns:2fr 1fr 1.4fr;gap:32px}
+footer h4{font-family:var(--serif);margin-bottom:10px}
+footer li{list-style:none;margin-bottom:6px;font-size:.92rem}
+footer p{font-size:.92rem;color:var(--muted)}
+.copy{max-width:1200px;margin:26px auto 0;padding-top:16px;border-top:1px solid var(--line);font-size:.82rem;color:var(--muted)}
+
+@media(max-width:1000px){.three{grid-template-columns:1fr}}
+@media(max-width:900px){.foot-in{grid-template-columns:1fr}}
+@media(max-width:720px){
+  .menu-btn{display:block}
+  .nav ul{display:none;position:absolute;top:100%;left:0;right:0;background:#fff;flex-direction:column;gap:0;padding:8px 24px 16px;border-bottom:1px solid var(--line)}
+  .nav ul.open{display:flex}
+  .nav ul li{padding:10px 0}
+  .lead{grid-template-columns:1fr;padding:26px 22px}
+}
+@media(prefers-reduced-motion:reduce){*{transition:none!important}}
+</style>
+</head>
+<body>
+
+<header class="site-header">
+  <nav class="nav" aria-label="Main">
+    <a href="index.html" class="logo"><span>PRIME</span> PROPERTIES</a>
+    <button class="menu-btn" id="menuBtn" aria-label="Menu">☰</button>
+    <ul id="menu">
+      <li><a href="index.html" data-i18n="nav_home">მთავარი</a></li>
+      <li><a href="seal.html" data-i18n="nav_sale">იყიდება</a></li>
+      <li><a href="rent.html" data-i18n="nav_rent">ქირავდება</a></li>
+      <li><a href="services.html" data-i18n="nav_services">სერვისები</a></li>
+      <li><a href="about.html" class="active" data-i18n="nav_about">ჩვენ შესახებ</a></li>
+      <li><a href="#contact" data-i18n="nav_contact">კონტაქტი</a></li>
+    </ul>
+    <div class="lang"><button data-lang="en">EN</button><button data-lang="ka" class="on">KA</button></div>
+  </nav>
+</header>
+
+<section class="hero">
+  <h1 data-i18n="h1">ჩვენ შესახებ</h1>
+  <p data-i18n="sub">არა უბრალოდ სააგენტო, არამედ სტრატეგიული პარტნიორი თქვენი სახლის გზაზე.</p>
+</section>
+
+<section class="about">
+  <div class="lead">
+    <div class="mark"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20.8 4.6a5.5 5.5 0 0 0-7.8 0L12 5.7l-1-1.1a5.5 5.5 0 0 0-7.8 7.8l1 1.1L12 21l7.8-7.5 1-1.1a5.5 5.5 0 0 0 0-7.8z"/></svg></div>
+    <div>
+      <h2 data-i18n="lh">Prime Properties არ არის უბრალოდ უძრავი ქონების სააგენტო</h2>
+      <p data-i18n="lp">ჩვენ ვართ სტრატეგიული პარტნიორი, რომელიც მჭიდროდ თანამშრომლობს სხვადასხვა სააგენტოსთან, რათა უმაღლესი ხარისხის მომსახურება შემოგთავაზოთ. ჩვენი მთავარი უპირატესობა კლიენტებთან სანდო და მყარი ურთიერთობების დამყარებაა: თითოეული გარიგებისას თქვენი კეთილდღეობა და საჭიროებები ჩვენთვის პრიორიტეტულია.</p>
+    </div>
+  </div>
+
+  <div class="three">
+    <article class="col">
+      <div class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M17 21v-2a4 4 0 0 0-4-4H7a4 4 0 0 0-4 4v2"/><circle cx="10" cy="7" r="4"/><path d="M21 21v-2a4 4 0 0 0-3-3.9"/><path d="M16 3.1a4 4 0 0 1 0 7.8"/></svg></div>
+      <h3 data-i18n="a1h">გვერდით ყოველ ეტაპზე</h3>
+      <p data-i18n="a1p">ჩვენი გუნდი მზადაა, გვერდით დაგიდგეთ პროცესის თითოეულ ეტაპზე. ჩვენ უზრუნველვყოფთ თითოეული დეტალის ზუსტ გაგებას და გთავაზობთ პერსონალიზებულ მხარდაჭერას: ქონების დათვალიერებიდან ნასყიდობის ხელშეკრულების გაფორმებამდე.</p>
+    </article>
+    <article class="col">
+      <div class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 11.5 12 4l9 7.5"/><path d="M5 10v10h14V10"/><path d="M10 20v-6h4v6"/></svg></div>
+      <h3 data-i18n="a2h">სიყვარული და ბაზრის ცოდნა</h3>
+      <p data-i18n="a2p">ჩვენი საქმისადმი სიყვარული და ადგილობრივი ბაზრის ღრმა ცოდნა გვაძლევს უნიკალურ შესაძლებლობას, საქართველოში სახლის ფლობის ან დაქირავების თქვენი ოცნება მარტივ და სასიამოვნო რეალობად ვაქციოთ.</p>
+    </article>
+    <article class="col">
+      <div class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 10c0 7-9 13-9 13S3 17 3 10a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg></div>
+      <h3 data-i18n="a3h">თბილისში და მის ფარგლებს გარეთ</h3>
+      <p data-i18n="a3p">ჩვენ ვმუშაობთ როგორც თბილისის მასშტაბით, ისე მის ფარგლებს გარეთ. მზა უძრავი ქონების კატალოგის გარდა, გთავაზობთ ქონების ინდივიდუალური ძიების სერვისს.</p>
+    </article>
+  </div>
+
+  <div class="quote" data-i18n="q">თქვენი იდეალური სახლი უკვე არსებობს და ჩვენ მზად ვართ, ის თქვენთვის ვიპოვოთ.</div>
+</section>
+
+<section class="cta-band">
+  <h2 data-i18n="ctah">გაგვაცანით თქვენი მოთხოვნები</h2>
+  <p data-i18n="ctap">გაეცანით ჩვენს სერვისებს ან პირდაპირ დაგვიკავშირდით.</p>
+  <a href="services.html" class="cta" data-i18n="ctab">ჩვენი სერვისები</a>
+</section>
+
+<footer id="contact">
+  <div class="foot-in">
+    <div><h4>PRIME PROPERTIES</h4><p data-i18n="f_about">გასაყიდი და გასაქირავებელი უძრავი ქონების შერჩეული კოლექცია.</p></div>
+    <div><h4 data-i18n="f_pages">გვერდები</h4><ul><li><a href="seal.html" data-i18n="nav_sale">იყიდება</a></li><li><a href="rent.html" data-i18n="nav_rent">ქირავდება</a></li><li><a href="services.html" data-i18n="nav_services">სერვისები</a></li><li><a href="about.html" data-i18n="nav_about">ჩვენ შესახებ</a></li></ul></div>
+    <div><h4 data-i18n="f_touch">დაგვიკავშირდი</h4><p>info@PRIMEPROPERTIES.com<br>+995 500 70 05 76</p></div>
+  </div>
+  <div class="copy" data-i18n="copy">© 2026 PRIME PROPERTIES. ყველა უფლება დაცულია.</div>
+</footer>
+
+<script>
+const T = {
+ en:{title:'About us | PRIME PROPERTIES',
+  nav_home:'Home',nav_sale:'For sale',nav_rent:'For rent',nav_services:'Services',nav_about:'About us',nav_contact:'Contacts',
+  h1:'About us',sub:'Not just an agency, but a strategic partner on your way to a home.',
+  lh:'Prime Properties is not just a real estate agency',
+  lp:'We are a strategic partner that works closely with various agencies to offer you the highest quality of service. Our main advantage is building trusted, lasting relationships with our clients: in every transaction, your well-being and needs are our priority.',
+  a1h:'By your side at every step',
+  a1p:'Our team is ready to stand by you at every stage of the process. We make sure every detail is understood precisely and offer personalised support, from viewing the property to signing the purchase agreement.',
+  a2h:'Passion and market knowledge',
+  a2p:'Our love for what we do and deep knowledge of the local market give us a unique opportunity to turn your dream of owning or renting a home in Georgia into a simple and pleasant reality.',
+  a3h:'In Tbilisi and beyond',
+  a3p:'We work both across Tbilisi and beyond it. In addition to our catalogue of ready properties, we offer an individual property search service.',
+  q:'Your ideal home already exists, and we are ready to find it for you.',
+  ctah:'Tell us what you are looking for',ctap:'Explore our services or contact us directly.',ctab:'Our services',
+  f_about:'A curated collection of properties for sale and for rent.',f_pages:'Pages',f_touch:'Get in touch',
+  copy:'© 2026 PRIME PROPERTIES. All rights reserved.'},
+ ka:{title:'ჩვენ შესახებ | PRIME PROPERTIES',
+  nav_home:'მთავარი',nav_sale:'იყიდება',nav_rent:'ქირავდება',nav_services:'სერვისები',nav_about:'ჩვენ შესახებ',nav_contact:'კონტაქტი',
+  h1:'ჩვენ შესახებ',sub:'არა უბრალოდ სააგენტო, არამედ სტრატეგიული პარტნიორი თქვენი სახლის გზაზე.',
+  lh:'Prime Properties არ არის უბრალოდ უძრავი ქონების სააგენტო',
+  lp:'ჩვენ ვართ სტრატეგიული პარტნიორი, რომელიც მჭიდროდ თანამშრომლობს სხვადასხვა სააგენტოსთან, რათა უმაღლესი ხარისხის მომსახურება შემოგთავაზოთ. ჩვენი მთავარი უპირატესობა კლიენტებთან სანდო და მყარი ურთიერთობების დამყარებაა: თითოეული გარიგებისას თქვენი კეთილდღეობა და საჭიროებები ჩვენთვის პრიორიტეტულია.',
+  a1h:'გვერდით ყოველ ეტაპზე',
+  a1p:'ჩვენი გუნდი მზადაა, გვერდით დაგიდგეთ პროცესის თითოეულ ეტაპზე. ჩვენ უზრუნველვყოფთ თითოეული დეტალის ზუსტ გაგებას და გთავაზობთ პერსონალიზებულ მხარდაჭერას: ქონების დათვალიერებიდან ნასყიდობის ხელშეკრულების გაფორმებამდე.',
+  a2h:'სიყვარული და ბაზრის ცოდნა',
+  a2p:'ჩვენი საქმისადმი სიყვარული და ადგილობრივი ბაზრის ღრმა ცოდნა გვაძლევს უნიკალურ შესაძლებლობას, საქართველოში სახლის ფლობის ან დაქირავების თქვენი ოცნება მარტივ და სასიამოვნო რეალობად ვაქციოთ.',
+  a3h:'თბილისში და მის ფარგლებს გარეთ',
+  a3p:'ჩვენ ვმუშაობთ როგორც თბილისის მასშტაბით, ისე მის ფარგლებს გარეთ. მზა უძრავი ქონების კატალოგის გარდა, გთავაზობთ ქონების ინდივიდუალური ძიების სერვისს.',
+  q:'თქვენი იდეალური სახლი უკვე არსებობს და ჩვენ მზად ვართ, ის თქვენთვის ვიპოვოთ.',
+  ctah:'გაგვაცანით თქვენი მოთხოვნები',ctap:'გაეცანით ჩვენს სერვისებს ან პირდაპირ დაგვიკავშირდით.',ctab:'ჩვენი სერვისები',
+  f_about:'გასაყიდი და გასაქირავებელი უძრავი ქონების შერჩეული კოლექცია.',f_pages:'გვერდები',f_touch:'დაგვიკავშირდი',
+  copy:'© 2026 PRIME PROPERTIES. ყველა უფლება დაცულია.'}
+};
+let lang = 'ka';
+try { if (localStorage.getItem('lang') === 'en') lang = 'en'; } catch (e) {}
+function setLang(l){
+  lang = l;
+  document.documentElement.lang = l;
+  document.title = T[l].title;
+  try { localStorage.setItem('lang', l); } catch (e) {}
+  document.querySelectorAll('[data-i18n]').forEach(el => { const v = T[l][el.dataset.i18n]; if (v) el.textContent = v; });
+  document.querySelectorAll('.lang button').forEach(b => b.classList.toggle('on', b.dataset.lang === l));
+}
+document.querySelector('.lang').addEventListener('click', e => { const b = e.target.closest('button'); if (b) setLang(b.dataset.lang); });
+document.getElementById('menuBtn').addEventListener('click', () => document.getElementById('menu').classList.toggle('open'));
+setLang(lang);
+</script>
+</body>
+</html>

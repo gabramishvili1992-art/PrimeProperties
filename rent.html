@@ -1,0 +1,279 @@
+<!DOCTYPE html>
+<html lang="ka">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>ექსკლუზიური ბინების გაქირავება</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+Georgian:wght@500;600&family=Noto+Sans+Georgian:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#F5F9FB; --surface:#FFFFFF; --ink:#1F2D3A; --muted:#64768A;
+  --sky:#DCEBF3; --sage:#5E8C7B; --sage-soft:#E4F0EA; --gold:#B88A42; --line:#E1EAF0;
+  --serif:'Noto Serif Georgian',Georgia,serif; --sans:'Noto Sans Georgian',system-ui,sans-serif;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:var(--sans);background:var(--bg);color:var(--ink);line-height:1.6}
+a{color:inherit;text-decoration:none}
+img{display:block;max-width:100%}
+:focus-visible{outline:3px solid var(--gold);outline-offset:2px}
+
+/* Header */
+.site-header{background:rgba(255,255,255,.92);backdrop-filter:blur(8px);border-bottom:1px solid var(--line);position:sticky;top:0;z-index:20}
+.nav{max-width:1200px;margin:0 auto;padding:14px 24px;display:flex;align-items:center;justify-content:space-between;gap:16px}
+.logo{font-family:var(--serif);font-size:1.25rem;font-weight:600}
+.logo span{color:var(--gold)}
+.nav ul{display:flex;gap:26px;list-style:none;font-size:.95rem;font-weight:500}
+.nav ul a{padding:6px 0;border-bottom:2px solid transparent}
+.nav ul a:hover,.nav ul a.active{border-color:var(--gold)}
+.lang{display:flex;gap:4px}
+.lang button{border:1px solid var(--line);background:#fff;padding:5px 10px;border-radius:8px;font:inherit;font-size:.8rem;font-weight:600;cursor:pointer;color:var(--muted)}
+.lang button.on{background:var(--sage);border-color:var(--sage);color:#fff}
+.menu-btn{display:none;background:none;border:1px solid var(--line);border-radius:8px;padding:8px 12px;font-size:1rem;cursor:pointer}
+
+/* Hero */
+.hero{background:linear-gradient(180deg,var(--sky) 0%,var(--bg) 100%);padding:72px 24px 96px;text-align:center}
+.hero h1{font-family:var(--serif);font-weight:600;font-size:clamp(1.8rem,4.5vw,3rem);line-height:1.3;max-width:800px;margin:0 auto 14px}
+.hero p{color:var(--muted);font-size:1.05rem}
+
+/* Search bar */
+.search{max-width:1000px;margin:-52px auto 0;padding:0 24px;position:relative;z-index:5}
+.search-box{background:var(--surface);border-radius:20px;box-shadow:0 18px 40px rgba(60,100,130,.14);padding:18px;display:grid;grid-template-columns:repeat(3,1fr) auto;gap:12px;align-items:end}
+.field label{display:block;font-size:.8rem;color:var(--muted);margin-bottom:4px;font-weight:500}
+.field select,.field input{width:100%;padding:12px 14px;border:1px solid var(--line);border-radius:12px;font:inherit;background:#fff;color:var(--ink)}
+.btn{background:var(--sage);color:#fff;border:0;border-radius:12px;padding:13px 26px;font:inherit;font-weight:600;cursor:pointer;transition:background .2s}
+.btn:hover{background:#4C7666}
+
+/* Layout */
+.wrap{max-width:1200px;margin:0 auto;padding:40px 24px 80px}
+.toolbar{display:flex;flex-wrap:wrap;justify-content:flex-end;align-items:center;gap:16px;margin-bottom:24px}
+.chips{display:flex;flex-wrap:wrap;gap:8px}
+.chip{border:1px solid var(--line);background:#fff;color:var(--ink);padding:8px 16px;border-radius:999px;font:inherit;font-size:.9rem;cursor:pointer;transition:all .2s}
+.chip:hover{border-color:var(--sage)}
+.chip.on{background:var(--sage);border-color:var(--sage);color:#fff}
+.sort{display:flex;align-items:center;gap:10px;font-size:.9rem;color:var(--muted)}
+.sort select{padding:9px 12px;border:1px solid var(--line);border-radius:10px;font:inherit;background:#fff;color:var(--ink)}
+.count{font-family:var(--serif);font-size:1.4rem;margin-bottom:18px}
+
+/* Cards */
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:26px}
+.card{background:var(--surface);border:1px solid var(--line);border-radius:18px;overflow:hidden;display:flex;flex-direction:column;transition:transform .25s,box-shadow .25s}
+.card:hover{transform:translateY(-4px);box-shadow:0 16px 32px rgba(60,100,130,.13)}
+.thumb{position:relative;aspect-ratio:4/3;background:linear-gradient(135deg,var(--sky),var(--sage-soft));overflow:hidden}
+.thumb img{width:100%;height:100%;object-fit:cover}
+.badge{position:absolute;top:12px;left:12px;background:rgba(255,255,255,.95);color:var(--sage);font-size:.78rem;font-weight:600;padding:5px 12px;border-radius:999px}
+.body{padding:18px 20px 20px;display:flex;flex-direction:column;gap:6px;flex:1}
+.place{font-size:.85rem;color:var(--muted)}
+.body h3{font-family:var(--serif);font-weight:500;font-size:1.1rem;line-height:1.4}
+.meta{font-size:.85rem;color:var(--muted)}
+.tags{display:flex;flex-wrap:wrap;gap:6px;margin-top:4px}
+.tags span{font-size:.75rem;background:var(--sage-soft);color:var(--sage);padding:3px 10px;border-radius:999px;font-weight:500}
+.foot{margin-top:auto;padding-top:14px;display:flex;justify-content:space-between;align-items:center;gap:10px}
+.price small{color:var(--muted);font-size:.78rem;display:block}
+.price strong{font-size:1.15rem;color:var(--gold)}
+.price em{font-style:normal;color:var(--muted);font-size:.85rem}
+.view{border:1px solid var(--sage);color:var(--sage);padding:8px 16px;border-radius:10px;font-size:.88rem;font-weight:600;white-space:nowrap;transition:all .2s}
+.view:hover{background:var(--sage);color:#fff}
+.empty{grid-column:1/-1;text-align:center;color:var(--muted);padding:60px 0}
+
+/* Footer */
+footer{background:var(--sky);padding:48px 24px 28px}
+.foot-in{max-width:1200px;margin:0 auto;display:grid;grid-template-columns:2fr 1fr 1.4fr;gap:32px}
+footer h4{font-family:var(--serif);margin-bottom:10px;font-weight:600}
+footer li{list-style:none;margin-bottom:6px;font-size:.92rem}
+footer p{font-size:.92rem;color:var(--muted)}
+.copy{max-width:1200px;margin:28px auto 0;padding-top:18px;border-top:1px solid rgba(31,45,58,.12);font-size:.82rem;color:var(--muted)}
+
+/* Responsive */
+@media(max-width:860px){
+  .search-box{grid-template-columns:1fr 1fr}
+  .search-box .btn{grid-column:1/-1}
+  .foot-in{grid-template-columns:1fr}
+}
+@media(max-width:700px){
+  .menu-btn{display:block}
+  .nav ul{display:none;position:absolute;top:100%;left:0;right:0;background:#fff;flex-direction:column;gap:0;padding:8px 24px 16px;border-bottom:1px solid var(--line)}
+  .nav ul.open{display:flex}
+  .nav ul li{padding:10px 0}
+}
+@media(prefers-reduced-motion:reduce){*{transition:none!important}}
+</style>
+</head>
+<body>
+
+<header class="site-header">
+  <nav class="nav" aria-label="Main">
+    <a href="index.html" class="logo"><span>PRIME</span> PROPERTIES</a>
+    <button class="menu-btn" id="menuBtn" aria-label="Menu">☰</button>
+    <ul id="menu">
+      <li><a href="index.html" data-i18n="nav_home">მთავარი</a></li>
+      <li><a href="seal.html" data-i18n="nav_sale">იყიდება</a></li>
+      <li><a href="rent.html" class="active" data-i18n="nav_rent">ქირავდება</a></li>
+      <li><a href="about.html" data-i18n="nav_about">ჩვენ შესახებ</a></li>
+      <li><a href="contact.html" data-i18n="nav_contact">კონტაქტი</a></li>
+    </ul>
+    <div class="lang"><button data-lang="en">EN</button><button data-lang="ka" class="on">KA</button></div>
+  </nav>
+</header>
+
+<section class="hero">
+  <h1 data-i18n="h1">ექსკლუზიური ბინების გაქირავება</h1>
+  <p data-i18n="sub">აირჩიე მდებარეობა, ოთახების რაოდენობა და ფასი.</p>
+</section>
+
+<section class="search">
+  <div class="search-box">
+    <div class="field"><label for="dest" data-i18n="f_where">სად</label>
+      <select id="dest"></select>
+    </div>
+    <div class="field"><label for="rooms" data-i18n="f_rooms">ოთახი (მინ.)</label><input type="number" id="rooms" min="0" value="0"></div>
+    <div class="field"><label for="budget" data-i18n="f_budget">ფასი</label>
+      <select id="budget"></select>
+    </div>
+    <button class="btn" id="searchBtn" data-i18n="find">ძებნა</button>
+  </div>
+</section>
+
+<main class="wrap">
+  <div class="toolbar">
+    <label class="sort"><span data-i18n="sort_by">დალაგება</span>
+      <select id="sort">
+        <option value="rec" data-i18n="s_rec">რეკომენდებული</option>
+        <option value="low" data-i18n="s_low">ფასი: ზრდადობით</option>
+        <option value="high" data-i18n="s_high">ფასი: კლებადობით</option>
+        <option value="big" data-i18n="s_big">ჯერ ყველაზე დიდი</option>
+      </select>
+    </label>
+  </div>
+  <h2 class="count" id="count"></h2>
+  <div class="grid" id="grid"></div>
+</main>
+
+<footer id="footer">
+  <div class="foot-in">
+    <div><h4>PRIME PROPERTIES</h4><p data-i18n="f_about">საგულდაგულოდ შერჩეული ლუქს ვილები: კერძო აუზები, ხედი ზღვაზე, სოფლის მამულები და ადგილობრივი მხარდაჭერა.</p></div>
+    <div><h4 data-i18n="f_pages">გვერდები</h4><ul><li><a href="seal.html" data-i18n="nav_sale">იყიდება</a></li><li><a href="rent.html" data-i18n="nav_rent">ქირავდება</a></li><li><a href="#" data-i18n="f_blog">ბლოგი</a></li></ul></div>
+    <div><h4 data-i18n="f_touch">დაგვიკავშირდი</h4><p>info@PRIMEPROPERTIES.com<br>+39 352 084 7600<br><span data-i18n="addr">Via Tripoli 30, 58100 გროსეტო, იტალია</span></p></div>
+  </div>
+  <div class="copy" data-i18n="copy">© 2026 PRIME PROPERTIES. სასწავლო პროექტი, არა ოფიციალური საიტი.</div>
+</footer>
+
+<!-- ობიექტები იტვირთება ბაზიდან (config.js + data.js). ბინებს admin.html-დან მართავთ -->
+<script src="config.js"></script>
+<script src="listings.js"></script>
+<script src="data.js"></script>
+<script>
+let villas = [];    // ივსება ბაზიდან (ან listings.js-იდან, თუ config.js ჯერ არ არის შევსებული)
+let ready = false;
+
+const T = {
+ en:{title:'Exclusive Property Rentals',
+  nav_home:'Home',nav_sale:'For sale',nav_find:'Property finding',nav_rent:'For rent',nav_about:'About us',nav_contact:'Contacts',
+  h1:'Exclusive Property Rentals',sub:'Choose a location, number of rooms and price.',
+  f_where:'Where',all_dest:'All destinations',f_rooms:'Rooms (min)',f_budget:'Price',any_price:'Any price',upto:'Up to ',find:'Search',
+  sort_by:'Sort by',s_rec:'Recommended',s_low:'Price: low to high',s_high:'Price: high to low',s_big:'Largest first',
+  found:'Properties found: ',area:'Area',rooms:'Rooms',floor:'Floor',price:'Price',view:'View property',tuscany:'Tuscany',
+  none:'No properties match. Try changing the filters.',
+  f_about:'Carefully selected luxury villas: private pools, sea views, countryside estates and local support.',f_pages:'Pages',f_blog:'Blog',f_touch:'Get in touch',addr:'Via Tripoli 30, 58100 Grosseto, Italy',
+  copy:'© 2026 PRIME PROPERTIES. Learning project, not the official website.'},
+ ka:{title:'ექსკლუზიური ბინების გაქირავება',
+  nav_home:'მთავარი',nav_sale:'იყიდება',nav_find:'უძრავი ქონების ძიება',nav_rent:'ქირავდება',nav_about:'ჩვენ შესახებ',nav_contact:'კონტაქტი',
+  h1:'ექსკლუზიური ბინების გაქირავება',sub:'აირჩიე მდებარეობა, ოთახების რაოდენობა და ფასი.',
+  f_where:'სად',all_dest:'ყველა მიმართულება',f_rooms:'ოთახი (მინ.)',f_budget:'ფასი',any_price:'ნებისმიერი ფასი',upto:'',find:'ძებნა',
+  sort_by:'დალაგება',s_rec:'რეკომენდებული',s_low:'ფასი: ზრდადობით',s_high:'ფასი: კლებადობით',s_big:'ჯერ ყველაზე დიდი',
+  found:'ნაპოვნია ობიექტი: ',area:'ფართი',rooms:'ოთახი',floor:'სართული',price:'ფასი',view:'ობიექტის ნახვა',tuscany:'ტოსკანა',
+  none:'ობიექტი ვერ მოიძებნა. სცადე ფილტრების შეცვლა.',
+  f_about:'საგულდაგულოდ შერჩეული ლუქს ვილები: კერძო აუზები, ხედი ზღვაზე, სოფლის მამულები და ადგილობრივი მხარდაჭერა.',f_pages:'გვერდები',f_blog:'ბლოგი',f_touch:'დაგვიკავშირდი',addr:'Via Tripoli 30, 58100 გროსეტო, იტალია',
+  copy:'© 2026 PRIME PROPERTIES. სასწავლო პროექტი, არა ოფიციალური საიტი.'}
+};
+
+const BUDGETS = [300, 500, 1000, 2000];
+let lang = 'ka';
+try { if (localStorage.getItem('lang') === 'en') lang = 'en'; } catch (e) {}
+
+const $ = id => document.getElementById(id);
+const fmt = n => '$' + n.toLocaleString('en-US');
+const esc = s => String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
+const L = o => (o && typeof o === 'object') ? (o[lang] || o.en || o.ka || '') : o;
+const placeName = p => lang === 'ka' ? (PLACES_KA[p] || p) : p;
+
+function fillSelects(){
+  const t = T[lang];
+  const d = $('dest'), dv = d.value;
+  const names = [...new Set(villas.map(v => v.place))].sort((a, c) => placeName(a).localeCompare(placeName(c), lang));
+  d.innerHTML = '<option value="">' + t.all_dest + '</option>' +
+    names.map(n => '<option value="' + esc(n) + '">' + esc(placeName(n)) + '</option>').join('');
+  d.value = dv;
+
+  const b = $('budget'), bv = b.value;
+  b.innerHTML = '<option value="0">' + t.any_price + '</option>' +
+    BUDGETS.map(n => '<option value="' + n + '">' + (lang === 'ka' ? fmt(n) + '-მდე' : t.upto + fmt(n)) + '</option>').join('');
+  b.value = bv || '0';
+}
+
+function render(){
+  const t = T[lang];
+  if (!ready) { $('count').textContent = ''; $('grid').innerHTML = ''; return; }
+  const dest = $('dest').value;
+  const rooms = +$('rooms').value || 0;
+  const budget = +$('budget').value;
+  const sort = $('sort').value;
+
+  let list = villas.filter(v =>
+    (!dest || v.place === dest) &&
+    (!rooms || (v.rooms || 0) >= rooms) &&
+    (!budget || (v.price && v.price <= budget))
+  );
+
+  if (sort === 'low') list.sort((a,b) => a.price - b.price);
+  if (sort === 'high') list.sort((a,b) => b.price - a.price);
+  if (sort === 'big') list.sort((a,b) => (b.area || 0) - (a.area || 0));
+
+  $('count').textContent = t.found + list.length;
+
+  $('grid').innerHTML = list.length ? list.map(v => {
+    const am = (v.amenities || []).map(a => AMENITIES[a] ? AMENITIES[a][lang] : a);
+    return `
+    <article class="card">
+      <div class="thumb">
+        <img src="${esc(v.img)}" alt="${esc(L(v.name))}" loading="lazy" onerror="this.style.display='none'">
+      </div>
+      <div class="body">
+        <span class="place">${esc(placeName(v.place))}</span>
+        <h3>${esc(L(v.name))}</h3>
+        <span class="meta">${[v.area ? v.area + (lang === 'ka' ? ' მ²' : ' m²') : '', v.rooms ? v.rooms + ' ' + t.rooms.toLowerCase() : '', v.floor ? t.floor.toLowerCase() + ' ' + v.floor : ''].filter(Boolean).map(esc).join(' · ')}</span>
+        <div class="tags">${am.map(a => `<span>${esc(a)}</span>`).join('')}</div>
+        <div class="foot">
+          <div class="price"><small>${t.price}</small><strong>${v.price ? fmt(v.price) : '—'}</strong></div>
+          <a href="property.html?id=${v.id}&kind=rent" class="view">${t.view}</a>
+        </div>
+      </div>
+    </article>`;
+  }).join('') : `<p class="empty">${t.none}</p>`;
+}
+
+function setLang(l){
+  lang = l;
+  document.documentElement.lang = l;
+  document.title = T[l].title;
+  try { localStorage.setItem('lang', l); } catch (e) {}
+  document.querySelectorAll('[data-i18n]').forEach(el => {
+    const v = T[l][el.dataset.i18n]; if (v) el.textContent = v;
+  });
+  document.querySelectorAll('.lang button').forEach(b => b.classList.toggle('on', b.dataset.lang === l));
+  fillSelects();
+  render();
+}
+
+// მოვლენები
+document.querySelector('.lang').addEventListener('click', e => { const b = e.target.closest('button'); if (b) setLang(b.dataset.lang); });
+['sort','dest','budget','rooms'].forEach(id => $(id).addEventListener('change', render));
+$('searchBtn').addEventListener('click', render);
+$('menuBtn').addEventListener('click', () => $('menu').classList.toggle('open'));
+
+setLang(lang);
+loadListings('rent').then(list => { villas = list; ready = true; fillSelects(); render(); });
+</script>
+</body>
+</html>

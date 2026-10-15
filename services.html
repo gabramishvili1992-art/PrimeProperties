@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="ka">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>სერვისები | PRIME PROPERTIES</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600&family=Inter:wght@400;500;600&family=Noto+Sans+Georgian:wght@400;500;600&family=Noto+Serif+Georgian:wght@500;600&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#F5F9FB; --surface:#fff; --ink:#1F2D3A; --muted:#64768A;
+  --sky:#DCEBF3; --sage:#5E8C7B; --sage-dark:#4C7666; --sage-soft:#E4F0EA; --gold:#B88A42; --line:#E1EAF0;
+  --serif:'Fraunces','Noto Serif Georgian',Georgia,serif;
+  --sans:'Inter','Noto Sans Georgian',system-ui,sans-serif;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:var(--sans);background:var(--bg);color:var(--ink);line-height:1.6}
+a{color:inherit;text-decoration:none}
+:focus-visible{outline:3px solid var(--gold);outline-offset:2px}
+
+/* Header */
+.site-header{background:rgba(255,255,255,.92);backdrop-filter:blur(8px);border-bottom:1px solid var(--line);position:sticky;top:0;z-index:20}
+.nav{max-width:1200px;margin:0 auto;padding:14px 24px;display:flex;align-items:center;justify-content:space-between;gap:16px}
+.logo{font-family:var(--serif);font-size:1.3rem;font-weight:600}
+.logo span{color:var(--gold)}
+.nav ul{display:flex;gap:24px;list-style:none;font-size:.93rem;font-weight:500}
+.nav ul a{padding:6px 0;border-bottom:2px solid transparent}
+.nav ul a:hover,.nav ul a.active{border-color:var(--gold)}
+.lang{display:flex;gap:4px}
+.lang button{border:1px solid var(--line);background:#fff;padding:5px 10px;border-radius:8px;font:inherit;font-size:.8rem;font-weight:600;cursor:pointer;color:var(--muted)}
+.lang button.on{background:var(--sage);border-color:var(--sage);color:#fff}
+.menu-btn{display:none;background:none;border:1px solid var(--line);border-radius:8px;padding:8px 12px;font-size:1rem;cursor:pointer}
+
+/* Hero */
+.hero{background:linear-gradient(180deg,var(--sky) 0%,var(--bg) 100%);padding:76px 24px 110px;text-align:center}
+.hero h1{font-family:var(--serif);font-weight:600;font-size:clamp(2rem,5vw,3.2rem);line-height:1.25;max-width:760px;margin:0 auto 14px}
+.hero p{color:var(--muted);font-size:1.1rem;max-width:720px;margin:0 auto}
+
+/* Services */
+.services{max-width:1200px;margin:-64px auto 0;padding:0 24px 80px;position:relative;z-index:5}
+.cols{display:grid;grid-template-columns:repeat(4,1fr);gap:22px}
+.col{background:var(--surface);border:1px solid var(--line);border-radius:20px;padding:28px 24px 26px;display:flex;flex-direction:column;box-shadow:0 18px 40px rgba(60,100,130,.10);transition:transform .25s,box-shadow .25s}
+.col:hover{transform:translateY(-4px);box-shadow:0 22px 44px rgba(60,100,130,.16)}
+.ico{width:54px;height:54px;border-radius:16px;background:var(--sage-soft);color:var(--sage);display:grid;place-items:center;margin-bottom:18px}
+.ico svg{width:28px;height:28px}
+.kicker{font-size:.74rem;letter-spacing:.08em;text-transform:uppercase;color:var(--gold);font-weight:600;margin-bottom:6px}
+.col h2{font-family:var(--serif);font-weight:600;font-size:1.3rem;line-height:1.3;margin-bottom:12px}
+.col p{color:var(--muted);font-size:.95rem;flex:1}
+.col .more{margin-top:20px;display:inline-block;color:var(--sage);font-weight:600;font-size:.92rem;border-bottom:2px solid transparent;align-self:flex-start}
+.col .more:hover{border-color:var(--sage)}
+
+/* CTA */
+.cta-band{background:var(--sky);padding:60px 24px;text-align:center}
+.cta-band h2{font-family:var(--serif);font-size:clamp(1.5rem,3.5vw,2.1rem);margin-bottom:8px}
+.cta-band p{color:var(--muted);margin-bottom:22px}
+.cta{display:inline-block;background:var(--sage);color:#fff;padding:13px 28px;border-radius:12px;font-weight:600;transition:background .2s}
+.cta:hover{background:var(--sage-dark)}
+
+/* Footer */
+footer{background:#fff;padding:44px 24px 24px;border-top:1px solid var(--line)}
+.foot-in{max-width:1200px;margin:0 auto;display:grid;grid-template-columns:2fr 1fr 1.4fr;gap:32px}
+footer h4{font-family:var(--serif);margin-bottom:10px}
+footer li{list-style:none;margin-bottom:6px;font-size:.92rem}
+footer p{font-size:.92rem;color:var(--muted)}
+.copy{max-width:1200px;margin:26px auto 0;padding-top:16px;border-top:1px solid var(--line);font-size:.82rem;color:var(--muted)}
+
+@media(max-width:1000px){.cols{grid-template-columns:repeat(2,1fr)}}
+@media(max-width:900px){.foot-in{grid-template-columns:1fr}}
+@media(max-width:720px){
+  .menu-btn{display:block}
+  .nav ul{display:none;position:absolute;top:100%;left:0;right:0;background:#fff;flex-direction:column;gap:0;padding:8px 24px 16px;border-bottom:1px solid var(--line)}
+  .nav ul.open{display:flex}
+  .nav ul li{padding:10px 0}
+  .cols{grid-template-columns:1fr}
+}
+@media(prefers-reduced-motion:reduce){*{transition:none!important}}
+</style>
+</head>
+<body>
+
+<header class="site-header">
+  <nav class="nav" aria-label="Main">
+    <a href="index.html" class="logo"><span>PRIME</span> PROPERTIES</a>
+    <button class="menu-btn" id="menuBtn" aria-label="Menu">☰</button>
+    <ul id="menu">
+      <li><a href="index.html" data-i18n="nav_home">მთავარი</a></li>
+      <li><a href="seal.html" data-i18n="nav_sale">იყიდება</a></li>
+      <li><a href="rent.html" data-i18n="nav_rent">ქირავდება</a></li>
+      <li><a href="services.html" class="active" data-i18n="nav_services">სერვისები</a></li>
+      <li><a href="about.html" data-i18n="nav_about">ჩვენ შესახებ</a></li>
+      <li><a href="#contact" data-i18n="nav_contact">კონტაქტი</a></li>
+    </ul>
+    <div class="lang"><button data-lang="en">EN</button><button data-lang="ka" class="on">KA</button></div>
+  </nav>
+</header>
+
+<section class="hero">
+  <h1 data-i18n="h1">რით შეგვიძლია დაგეხმაროთ?</h1>
+  <p data-i18n="sub">საქართველოს მასშტაბით არსებული გამორჩეული სახლების ფართო არჩევანის გარდა, ჩვენ გაცილებით მეტს გთავაზობთ.</p>
+</section>
+
+<section class="services">
+  <div class="cols">
+    <article class="col">
+      <div class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg></div>
+      <div class="kicker" data-i18n="kicker">მომსახურება</div>
+      <h2 data-i18n="t1">უძრავი ქონების ძიება</h2>
+      <p data-i18n="p1">ჩვენი ძიების სერვისი თქვენს განკარგულებაშია: თუ ჩვენს კატალოგში ვერ იპოვეთ თქვენი ოცნების სახლი, ჩვენ მას თქვენთვის მოვძებნით. ჩვენი მიზანია, ვიპოვოთ იდეალური უძრავი ქონება, რომელიც სრულად დააკმაყოფილებს თქვენს მოლოდინს.</p>
+      <a href="#contact" class="more" data-i18n="more">დაგვიკავშირდით →</a>
+    </article>
+
+    <article class="col">
+      <div class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 11.5 12 4l9 7.5"/><path d="M5 10v10h14V10"/><path d="M10 20v-6h4v6"/></svg></div>
+      <div class="kicker" data-i18n="kicker">მომსახურება</div>
+      <h2 data-i18n="t2">გაყიდეთ ჩვენთან ერთად</h2>
+      <p data-i18n="p2">Prime Properties უზრუნველყოფს თქვენი უძრავი ქონების გაყიდვის პროცესის მაღალკვალიფიციურ მართვას. ჩვენი გამოცდილების, ბაზრის ცოდნისა და დეტალებისადმი ყურადღების წყალობით, ვმუშაობთ სახლის ღირებულების მაქსიმიზაციასა და მიზნობრივი მყიდველების მოზიდვაზე.</p>
+      <a href="#contact" class="more" data-i18n="more">დაგვიკავშირდით →</a>
+    </article>
+
+    <article class="col">
+      <div class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="8" cy="14" r="4"/><path d="m11 11 9-9"/><path d="m16 6 3 3"/><path d="m14 8 2 2"/></svg></div>
+      <div class="kicker" data-i18n="kicker">მომსახურება</div>
+      <h2 data-i18n="t3">გააქირავეთ ჩვენთან ერთად</h2>
+      <p data-i18n="p3">Prime Properties ზრუნავს თქვენი უძრავი ქონების მართვაზე, რათა ის დამსვენებლებზე გაქირავდეს. ჩვენი გამოცდილების, ბაზრის ცოდნისა და დეტალებისადმი ყურადღების წყალობით, ვმუშაობთ სახლის შემოსავლიანობის გაზრდასა და შესაფერისი სტუმრების მოზიდვაზე.</p>
+      <a href="#contact" class="more" data-i18n="more">დაგვიკავშირდით →</a>
+    </article>
+
+    <article class="col">
+      <div class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 12h4l3 3 4-6 3 3h4"/><path d="M12 21a9 9 0 1 0-9-9"/></svg></div>
+      <div class="kicker" data-i18n="kicker">მომსახურება</div>
+      <h2 data-i18n="t4">ითანამშრომლეთ ჩვენთან ერთად</h2>
+      <p data-i18n="p4">მოხარულნი ვართ, უძრავი ქონების ყველა სააგენტოს შევთავაზოთ თანამშრომლობის შესაძლებლობა და საქართველოს ბაზარზე გაყიდვების არეალის გაფართოება. თქვენი პროფესიული გამოცდილებისა და რეგიონის შესახებ ჩვენი ცოდნის გაერთიანება უნიკალურ გამოცდილებას შეუქმნის ჩვენს საერთო მომხმარებლებს.</p>
+      <a href="#contact" class="more" data-i18n="more">დაგვიკავშირდით →</a>
+    </article>
+  </div>
+</section>
+
+<section class="cta-band">
+  <h2 data-i18n="ctah">მზად ხართ დაიწყოთ?</h2>
+  <p data-i18n="ctap">მოგვწერეთ ან დაგვირეკეთ და ერთად ვიპოვით საუკეთესო გადაწყვეტას.</p>
+  <a href="#contact" class="cta" data-i18n="ctab">დაგვიკავშირდით</a>
+</section>
+
+<footer id="contact">
+  <div class="foot-in">
+    <div><h4>PRIME PROPERTIES</h4><p data-i18n="f_about">გასაყიდი და გასაქირავებელი უძრავი ქონების შერჩეული კოლექცია.</p></div>
+    <div><h4 data-i18n="f_pages">გვერდები</h4><ul><li><a href="seal.html" data-i18n="nav_sale">იყიდება</a></li><li><a href="rent.html" data-i18n="nav_rent">ქირავდება</a></li><li><a href="services.html" data-i18n="nav_services">სერვისები</a></li><li><a href="about.html" data-i18n="nav_about">ჩვენ შესახებ</a></li></ul></div>
+    <div><h4 data-i18n="f_touch">დაგვიკავშირდი</h4><p>info@PRIMEPROPERTIES.com<br>+39 352 084 7600</p></div>
+  </div>
+  <div class="copy" data-i18n="copy">© 2026 PRIME PROPERTIES. ყველა უფლება დაცულია.</div>
+</footer>
+
+<script>
+const T = {
+ en:{title:'Services | PRIME PROPERTIES',
+  nav_home:'Home',nav_sale:'For sale',nav_rent:'For rent',nav_services:'Services',nav_about:'About us',nav_contact:'Contacts',
+  h1:'How can we help you?',
+  sub:'Besides a wide selection of outstanding homes across Georgia, we offer so much more.',
+  kicker:'Service',more:'Contact us →',
+  t1:'Property search',
+  p1:"Our search service is at your disposal: if you can't find your dream home in our catalogue, we will find it for you. Our goal is to find the ideal property that fully meets your expectations.",
+  t2:'Sell with us',
+  p2:'Prime Properties provides highly professional management of the sale of your property. Thanks to our experience, market knowledge and attention to detail, we work to maximise the value of your home and attract the right buyers.',
+  t3:'Rent with us',
+  p3:'Prime Properties takes care of managing your property so that it can be rented out to holidaymakers. Thanks to our experience, market knowledge and attention to detail, we work to increase your home’s income and attract suitable guests.',
+  t4:'Partner with us',
+  p4:'We are happy to offer every real estate agency the chance to cooperate and expand their sales reach in the Georgian market. Combining your professional experience with our knowledge of the region will create a unique experience for our shared clients.',
+  ctah:'Ready to get started?',ctap:"Write or call us and together we'll find the best solution.",ctab:'Contact us',
+  f_about:'A curated collection of properties for sale and for rent.',f_pages:'Pages',f_touch:'Get in touch',
+  copy:'© 2026 PRIME PROPERTIES. All rights reserved.'},
+ ka:{title:'სერვისები | PRIME PROPERTIES',
+  nav_home:'მთავარი',nav_sale:'იყიდება',nav_rent:'ქირავდება',nav_services:'სერვისები',nav_about:'ჩვენ შესახებ',nav_contact:'კონტაქტი',
+  h1:'რით შეგვიძლია დაგეხმაროთ?',
+  sub:'საქართველოს მასშტაბით არსებული გამორჩეული სახლების ფართო არჩევანის გარდა, ჩვენ გაცილებით მეტს გთავაზობთ.',
+  kicker:'მომსახურება',more:'დაგვიკავშირდით →',
+  t1:'უძრავი ქონების ძიება',
+  p1:'ჩვენი ძიების სერვისი თქვენს განკარგულებაშია: თუ ჩვენს კატალოგში ვერ იპოვეთ თქვენი ოცნების სახლი, ჩვენ მას თქვენთვის მოვძებნით. ჩვენი მიზანია, ვიპოვოთ იდეალური უძრავი ქონება, რომელიც სრულად დააკმაყოფილებს თქვენს მოლოდინს.',
+  t2:'გაყიდეთ ჩვენთან ერთად',
+  p2:'Prime Properties უზრუნველყოფს თქვენი უძრავი ქონების გაყიდვის პროცესის მაღალკვალიფიციურ მართვას. ჩვენი გამოცდილების, ბაზრის ცოდნისა და დეტალებისადმი ყურადღების წყალობით, ვმუშაობთ სახლის ღირებულების მაქსიმიზაციასა და მიზნობრივი მყიდველების მოზიდვაზე.',
+  t3:'გააქირავეთ ჩვენთან ერთად',
+  p3:'Prime Properties ზრუნავს თქვენი უძრავი ქონების მართვაზე, რათა ის დამსვენებლებზე გაქირავდეს. ჩვენი გამოცდილების, ბაზრის ცოდნისა და დეტალებისადმი ყურადღების წყალობით, ვმუშაობთ სახლის შემოსავლიანობის გაზრდასა და შესაფერისი სტუმრების მოზიდვაზე.',
+  t4:'ითანამშრომლეთ ჩვენთან ერთად',
+  p4:'მოხარულნი ვართ, უძრავი ქონების ყველა სააგენტოს შევთავაზოთ თანამშრომლობის შესაძლებლობა და საქართველოს ბაზარზე გაყიდვების არეალის გაფართოება. თქვენი პროფესიული გამოცდილებისა და რეგიონის შესახებ ჩვენი ცოდნის გაერთიანება უნიკალურ გამოცდილებას შეუქმნის ჩვენს საერთო მომხმარებლებს.',
+  ctah:'მზად ხართ დაიწყოთ?',ctap:'მოგვწერეთ ან დაგვირეკეთ და ერთად ვიპოვით საუკეთესო გადაწყვეტას.',ctab:'დაგვიკავშირდით',
+  f_about:'გასაყიდი და გასაქირავებელი უძრავი ქონების შერჩეული კოლექცია.',f_pages:'გვერდები',f_touch:'დაგვიკავშირდი',
+  copy:'© 2026 PRIME PROPERTIES. ყველა უფლება დაცულია.'}
+};
+let lang = 'ka';
+try { if (localStorage.getItem('lang') === 'en') lang = 'en'; } catch (e) {}
+function setLang(l){
+  lang = l;
+  document.documentElement.lang = l;
+  document.title = T[l].title;
+  try { localStorage.setItem('lang', l); } catch (e) {}
+  document.querySelectorAll('[data-i18n]').forEach(el => { const v = T[l][el.dataset.i18n]; if (v) el.textContent = v; });
+  document.querySelectorAll('.lang button').forEach(b => b.classList.toggle('on', b.dataset.lang === l));
+}
+document.querySelector('.lang').addEventListener('click', e => { const b = e.target.closest('button'); if (b) setLang(b.dataset.lang); });
+document.getElementById('menuBtn').addEventListener('click', () => document.getElementById('menu').classList.toggle('open'));
+setLang(lang);
+</script>
+</body>
+</html>

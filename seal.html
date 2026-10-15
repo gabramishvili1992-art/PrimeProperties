@@ -1,0 +1,319 @@
+<!DOCTYPE html>
+<html lang="ka">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>ვილები და უძრავი ქონება იყიდება</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600&family=Inter:wght@400;500;600&family=Noto+Sans+Georgian:wght@400;500;600&family=Noto+Serif+Georgian:wght@500;600&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#F5F9FB; --surface:#fff; --ink:#1F2D3A; --muted:#64768A;
+  --sky:#DCEBF3; --sage:#5E8C7B; --sage-soft:#E4F0EA; --gold:#B88A42; --line:#E1EAF0;
+  --serif:'Fraunces','Noto Serif Georgian',Georgia,serif;
+  --sans:'Inter','Noto Sans Georgian',system-ui,sans-serif;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:var(--sans);background:var(--bg);color:var(--ink);line-height:1.6}
+a{color:inherit;text-decoration:none}
+img{display:block;max-width:100%}
+:focus-visible{outline:3px solid var(--gold);outline-offset:2px}
+
+/* Header */
+.site-header{background:rgba(255,255,255,.92);backdrop-filter:blur(8px);border-bottom:1px solid var(--line);position:sticky;top:0;z-index:20}
+.nav{max-width:1200px;margin:0 auto;padding:14px 24px;display:flex;align-items:center;justify-content:space-between;gap:16px}
+.logo{font-family:var(--serif);font-size:1.3rem;font-weight:600}
+.logo span{color:var(--gold)}
+.nav ul{display:flex;gap:24px;list-style:none;font-size:.93rem;font-weight:500}
+.nav ul a{padding:6px 0;border-bottom:2px solid transparent}
+.nav ul a:hover,.nav ul a.active{border-color:var(--gold)}
+.lang{display:flex;gap:4px}
+.lang button{border:1px solid var(--line);background:#fff;padding:5px 10px;border-radius:8px;font:inherit;font-size:.8rem;font-weight:600;cursor:pointer;color:var(--muted)}
+.lang button.on{background:var(--sage);border-color:var(--sage);color:#fff}
+.menu-btn{display:none;background:none;border:1px solid var(--line);border-radius:8px;padding:8px 12px;font-size:1rem;cursor:pointer}
+
+/* Hero */
+.hero{background:linear-gradient(180deg,var(--sky) 0%,var(--bg) 100%);padding:76px 24px 100px;text-align:center}
+.hero h1{font-family:var(--serif);font-weight:600;font-size:clamp(2rem,5vw,3.3rem);line-height:1.25;max-width:760px;margin:0 auto 12px}
+.hero p{color:var(--muted);font-size:1.1rem;margin-bottom:26px}
+.cta{display:inline-block;background:var(--sage);color:#fff;padding:13px 28px;border-radius:12px;font-weight:600;border:0;font:inherit;font-weight:600;cursor:pointer;transition:background .2s}
+.cta:hover{background:#4C7666}
+
+/* Filters */
+.filters{max-width:1000px;margin:-54px auto 0;padding:0 24px;position:relative;z-index:5}
+.filter-box{background:var(--surface);border-radius:20px;box-shadow:0 18px 40px rgba(60,100,130,.14);padding:18px;display:grid;grid-template-columns:repeat(4,1fr) auto;gap:12px;align-items:end}
+.field label{display:block;font-size:.8rem;color:var(--muted);margin-bottom:4px;font-weight:500}
+.field select,.field input{width:100%;padding:12px 14px;border:1px solid var(--line);border-radius:12px;font:inherit;background:#fff;color:var(--ink)}
+.check{display:flex;align-items:center;gap:8px;padding:12px 4px;font-size:.92rem;cursor:pointer}
+.check input{width:18px;height:18px;accent-color:var(--sage)}
+.reset{background:none;border:0;color:var(--sage);font:inherit;font-weight:600;cursor:pointer;padding:12px}
+
+/* Listings */
+.wrap{max-width:1200px;margin:0 auto;padding:40px 24px 70px}
+.top{display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:12px;margin-bottom:22px}
+.count{font-family:var(--serif);font-size:1.45rem}
+.sort select{padding:9px 12px;border:1px solid var(--line);border-radius:10px;font:inherit;background:#fff;color:var(--ink)}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(320px,1fr));gap:26px}
+.card{background:var(--surface);border:1px solid var(--line);border-radius:18px;overflow:hidden;display:flex;flex-direction:column;transition:transform .25s,box-shadow .25s}
+.card:hover{transform:translateY(-4px);box-shadow:0 16px 32px rgba(60,100,130,.13)}
+.thumb{position:relative;aspect-ratio:4/3;background:linear-gradient(135deg,var(--sky),var(--sage-soft));overflow:hidden}
+.thumb img{width:100%;height:100%;object-fit:cover}
+.badges{position:absolute;top:12px;left:12px;display:flex;gap:6px}
+.badge{background:rgba(255,255,255,.95);color:var(--sage);font-size:.76rem;font-weight:600;padding:4px 12px;border-radius:999px}
+.badge.sold{background:#C9594B;color:#fff}
+.body{padding:18px 20px 20px;display:flex;flex-direction:column;gap:6px;flex:1}
+.place{font-size:.84rem;color:var(--muted);display:flex;justify-content:space-between;gap:8px}
+.body h3{font-family:var(--serif);font-weight:500;font-size:1.1rem;line-height:1.4}
+.specs{display:grid;grid-template-columns:repeat(4,1fr);gap:6px;margin-top:8px;padding:10px 0;border-top:1px solid var(--line);border-bottom:1px solid var(--line);text-align:center}
+.specs b{display:block;font-size:.95rem}
+.specs span{font-size:.72rem;color:var(--muted)}
+.foot{margin-top:auto;padding-top:14px;display:flex;justify-content:space-between;align-items:center;gap:10px}
+.price small{color:var(--muted);font-size:.76rem;display:block}
+.price strong{font-size:1.15rem;color:var(--gold)}
+.view{border:1px solid var(--sage);color:var(--sage);padding:8px 16px;border-radius:10px;font-size:.86rem;font-weight:600;white-space:nowrap;transition:all .2s}
+.view:hover{background:var(--sage);color:#fff}
+.empty{grid-column:1/-1;text-align:center;color:var(--muted);padding:60px 0}
+
+/* Contact form */
+.contact{background:var(--sky);padding:64px 24px}
+.contact-in{max-width:760px;margin:0 auto;text-align:center}
+.contact h2{font-family:var(--serif);font-size:clamp(1.6rem,3.5vw,2.2rem);margin-bottom:8px}
+.contact p{color:var(--muted);margin-bottom:26px}
+.form{background:#fff;border-radius:20px;padding:24px;display:grid;grid-template-columns:1fr 1fr;gap:12px;text-align:left}
+.form .full{grid-column:1/-1}
+.form textarea{width:100%;padding:12px 14px;border:1px solid var(--line);border-radius:12px;font:inherit;min-height:90px;resize:vertical}
+.ok{display:none;color:var(--sage);font-weight:600;margin-top:14px}
+
+/* Footer */
+footer{background:#fff;padding:44px 24px 24px;border-top:1px solid var(--line)}
+.foot-in{max-width:1200px;margin:0 auto;display:grid;grid-template-columns:2fr 1fr 1.4fr;gap:32px}
+footer h4{font-family:var(--serif);margin-bottom:10px}
+footer li{list-style:none;margin-bottom:6px;font-size:.92rem}
+footer p{font-size:.92rem;color:var(--muted)}
+.copy{max-width:1200px;margin:26px auto 0;padding-top:16px;border-top:1px solid var(--line);font-size:.82rem;color:var(--muted)}
+
+@media(max-width:900px){
+  .filter-box{grid-template-columns:1fr 1fr}
+  .foot-in{grid-template-columns:1fr}
+}
+@media(max-width:720px){
+  .menu-btn{display:block}
+  .nav ul{display:none;position:absolute;top:100%;left:0;right:0;background:#fff;flex-direction:column;gap:0;padding:8px 24px 16px;border-bottom:1px solid var(--line)}
+  .nav ul.open{display:flex}
+  .nav ul li{padding:10px 0}
+  .form{grid-template-columns:1fr}
+}
+@media(prefers-reduced-motion:reduce){*{transition:none!important}}
+</style>
+</head>
+<body>
+
+<header class="site-header">
+  <nav class="nav" aria-label="Main">
+    <a href="index.html" class="logo"><span>PRIME</span> PROPERTIES</a>
+    <button class="menu-btn" id="menuBtn" aria-label="Menu">☰</button>
+    <ul id="menu">
+      <li><a href="index.html" data-i18n="nav_home">მთავარი</a></li>
+      <li><a href="seal.html" class="active" data-i18n="nav_sale">იყიდება</a></li>
+      <li><a href="rent.html" data-i18n="nav_rent">ქირავდება</a></li>
+      <li><a href="about.html" data-i18n="nav_about">ჩვენ შესახებ</a></li>
+      <li><a href="contact.html" data-i18n="nav_contact">კონტაქტი</a></li>
+    </ul>
+    <div class="lang"><button data-lang="en">EN</button><button data-lang="ka" class="on">KA</button></div>
+  </nav>
+</header>
+
+<section class="hero">
+  <h1 data-i18n="h1">იპოვე შენი საოცნებო სახლი</h1>
+  <p data-i18n="sub">დახვეწილი რეზიდენციები, ფერმები და მამულები, შერჩეული შენთვის.</p>
+  <a href="#contact" class="cta" data-i18n="cta">იპოვე სახლი ჩვენთან ერთად</a>
+</section>
+
+<section class="filters">
+  <div class="filter-box">
+    <div class="field"><label for="budget" data-i18n="f_budget">ბიუჯეტი</label>
+      <select id="budget"></select>
+    </div>
+    <div class="field"><label for="beds" data-i18n="f_beds">საძინებელი (მინ.)</label><input type="number" id="beds" min="0" value="0"></div>
+    <div class="field"><label for="baths" data-i18n="f_baths">სააბაზანო (მინ.)</label><input type="number" id="baths" min="0" value="0"></div>
+    <div class="field"><label for="place" data-i18n="f_loc">მდებარეობა</label>
+      <select id="place"></select>
+    </div>
+    <div>
+      <label class="check"><input type="checkbox" id="pool"> <span data-i18n="f_pool">აუზი</span></label>
+      <button class="reset" id="reset" data-i18n="reset">გასუფთავება</button>
+    </div>
+  </div>
+</section>
+
+<main class="wrap">
+  <div class="top">
+    <h2 class="count" id="count"></h2>
+    <label class="sort"><span data-i18n="sort_by">დალაგება</span>
+      <select id="sort">
+        <option value="rec" data-i18n="s_rec">რეკომენდებული</option>
+        <option value="low" data-i18n="s_low">ფასი: ზრდადობით</option>
+        <option value="high" data-i18n="s_high">ფასი: კლებადობით</option>
+        <option value="size" data-i18n="s_size">ჯერ ყველაზე დიდი</option>
+      </select>
+    </label>
+  </div>
+  <div class="grid" id="grid"></div>
+</main>
+
+<section class="contact" id="contact">
+  <div class="contact-in">
+    <h2 data-i18n="c_title">შენი საოცნებო სახლი ერთი კლიკითაა</h2>
+    <p data-i18n="c_text">მოგვწერე სასურველი ბიუჯეტი და ყოველკვირეულად გამოგიგზავნით შესაფერის შეთავაზებებს.</p>
+    <form class="form" id="form">
+      <div class="field"><label for="n1" data-i18n="c_name">სახელი</label><input id="n1" required></div>
+      <div class="field"><label for="n2" data-i18n="c_surname">გვარი</label><input id="n2"></div>
+      <div class="field"><label for="em" data-i18n="c_email">ელფოსტა *</label><input id="em" type="email" required></div>
+      <div class="field"><label for="tel" data-i18n="c_tel">ტელეფონი</label><input id="tel" type="tel"></div>
+      <div class="field full"><label for="range" data-i18n="c_range">ფასის დიაპაზონი</label>
+        <select id="range"><option>$100,000 – 300,000</option><option>$300,000 – 700,000</option><option>$700,000 – 1,500,000</option><option>$1,500,000+</option></select>
+      </div>
+      <div class="field full"><label for="msg" data-i18n="c_msg">აღწერე, რას ეძებ</label><textarea id="msg"></textarea></div>
+      <label class="check full"><input type="checkbox" required> <span data-i18n="c_priv">ვეთანხმები კონფიდენციალურობის პოლიტიკას</span></label>
+      <button class="cta full" type="submit" data-i18n="c_send">გაგზავნა</button>
+    </form>
+    <p class="ok" id="ok" data-i18n="c_ok">გმადლობთ! მალე დაგიკავშირდებით.</p>
+  </div>
+</section>
+
+<footer>
+  <div class="foot-in">
+    <div><h4>PRIME PROPERTIES</h4><p data-i18n="f_about">იყიდება ვილები, ფერმები და მამულები: უძრავი ქონების შერჩეული კოლექცია.</p></div>
+    <div><h4 data-i18n="f_explore">გვერდები</h4><ul><li><a href="seal.html" data-i18n="nav_sale">იყიდება</a></li><li><a href="rent.html" data-i18n="nav_rent">ქირავდება</a></li></ul></div>
+    <div><h4 data-i18n="f_touch">დაგვიკავშირდი</h4><p>info@PRIMEPROPERTIES.com<br>+39 352 084 7600<br><span data-i18n="addr">Via Tripoli 30, 58100 გროსეტო, იტალია</span></p></div>
+  </div>
+  <div class="copy" data-i18n="copy">© 2026 PRIME PROPERTIES. სასწავლო პროექტი, არა ოფიციალური საიტი.</div>
+</footer>
+
+<!-- ობიექტები იტვირთება ბაზიდან (config.js + data.js). ბინებს admin.html-დან მართავთ -->
+<script src="config.js"></script>
+<script src="listings.js"></script>
+<script src="data.js"></script>
+<script>
+let rows = [];      // ივსება ბაზიდან (ან listings.js-იდან, თუ config.js ჯერ არ არის შევსებული)
+let ready = false;
+
+const T = {
+ en:{title:'Villas and Real Estate for Sale',
+  nav_home:'Home',nav_sale:'For sale',nav_find:'Property finding',nav_rent:'For rent',nav_about:'About us',nav_contact:'Contacts',
+  h1:'Find your dream home',sub:'Refined residences, farmhouses and estates, handpicked for you.',cta:'Find your home with us',
+  f_budget:'Budget',any_price:'Any price',upto:'Up to ',f_beds:'Bedrooms (min)',f_baths:'Bathrooms (min)',f_loc:'Location',all_loc:'All locations',f_pool:'Pool',reset:'Reset',
+  sort_by:'Sort by',s_rec:'Recommended',s_low:'Price: low to high',s_high:'Price: high to low',s_size:'Largest first',
+  c_title:'Your dream home is a click away',c_text:"Tell us your price range and we'll send you tailored weekly listings.",
+  c_name:'Name',c_surname:'Surname',c_email:'Email *',c_tel:'Phone',c_range:'Price range',c_msg:'Describe what you are looking for',c_priv:'I accept the privacy policy',c_send:'Send',c_ok:"Thank you! We'll be in touch soon.",
+  f_about:'Villas, farmhouses and estates for sale: a curated selection of properties.',f_explore:'Explore',f_touch:'Get in touch',addr:'Via Tripoli 30, 58100 Grosseto, Italy',
+  copy:'© 2026 PRIME PROPERTIES. Learning project, not the official website.',
+  props:'properties',prop:'property',sold:'Sold',sale:'For sale',pool:'Pool',price:'Price',request:'On request',view:'View property',
+  built:'Built',land:'Land',rooms:'Rooms',beds:'Beds',baths:'Baths',code:'Code',region:'Tuscany',none:'No properties match. Try changing the filters.'},
+ ka:{title:'ვილები და უძრავი ქონება იყიდება',
+  nav_home:'მთავარი',nav_sale:'იყიდება',nav_find:'უძრავი ქონების ძიება',nav_rent:'ქირავდება',nav_about:'ჩვენ შესახებ',nav_contact:'კონტაქტი',
+  h1:'იპოვე შენი საოცნებო სახლი',sub:'დახვეწილი რეზიდენციები, ფერმები და მამულები, შერჩეული შენთვის.',cta:'იპოვე სახლი ჩვენთან ერთად',
+  f_budget:'ბიუჯეტი',any_price:'ნებისმიერი ფასი',upto:'',f_beds:'საძინებელი (მინ.)',f_baths:'სააბაზანო (მინ.)',f_loc:'მდებარეობა',all_loc:'ყველა ლოკაცია',f_pool:'აუზი',reset:'გასუფთავება',
+  sort_by:'დალაგება',s_rec:'რეკომენდებული',s_low:'ფასი: ზრდადობით',s_high:'ფასი: კლებადობით',s_size:'ჯერ ყველაზე დიდი',
+  c_title:'შენი საოცნებო სახლი ერთი კლიკითაა',c_text:'მოგვწერე სასურველი ბიუჯეტი და ყოველკვირეულად გამოგიგზავნით შესაფერის შეთავაზებებს.',
+  c_name:'სახელი',c_surname:'გვარი',c_email:'ელფოსტა *',c_tel:'ტელეფონი',c_range:'ფასის დიაპაზონი',c_msg:'აღწერე, რას ეძებ',c_priv:'ვეთანხმები კონფიდენციალურობის პოლიტიკას',c_send:'გაგზავნა',c_ok:'გმადლობთ! მალე დაგიკავშირდებით.',
+  f_about:'იყიდება ვილები, ფერმები და მამულები: უძრავი ქონების შერჩეული კოლექცია.',f_explore:'გვერდები',f_touch:'დაგვიკავშირდი',addr:'Via Tripoli 30, 58100 გროსეტო, იტალია',
+  copy:'© 2026 PRIME PROPERTIES. სასწავლო პროექტი, არა ოფიციალური საიტი.',
+  props:'ობიექტი',prop:'ობიექტი',sold:'გაყიდულია',sale:'იყიდება',pool:'აუზი',price:'ფასი',request:'მოთხოვნით',view:'ობიექტის ნახვა',
+  built:'ფართი',land:'მიწა',rooms:'ოთახი',beds:'საძინებელი',baths:'სააბაზანო',code:'კოდი',region:'ტოსკანა',none:'ობიექტი ვერ მოიძებნა. სცადე ფილტრების შეცვლა.'}
+};
+
+const BUDGETS = [300000, 1000000, 3000000, 6000000];
+let lang = 'ka';
+try { if (localStorage.getItem('lang') === 'en') lang = 'en'; } catch (e) {}
+
+const $ = id => document.getElementById(id);
+const fmt = n => '$' + n.toLocaleString('en-US');
+const esc = s => String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
+const L = o => (o && typeof o === 'object') ? (o[lang] || o.en || o.ka || '') : o;
+const placeName = p => lang === 'ka' ? (PLACES_KA[p] || p) : p;
+const landFmt = s => lang === 'ka' ? String(s).replace('m²','მ²').replace('ha','ჰა') : s;
+
+function fillSelects(){
+  const t = T[lang];
+  const b = $('budget'), bv = b.value;
+  b.innerHTML = '<option value="0">' + t.any_price + '</option>' +
+    BUDGETS.map(n => '<option value="' + n + '">' + (lang === 'ka' ? fmt(n) + '-მდე' : t.upto + fmt(n)) + '</option>').join('');
+  b.value = bv || '0';
+
+  const p = $('place'), pv = p.value;
+  const names = [...new Set(rows.map(r => r.place))].sort((a, c) => placeName(a).localeCompare(placeName(c), lang));
+  p.innerHTML = '<option value="">' + t.all_loc + '</option>' +
+    names.map(n => '<option value="' + esc(n) + '">' + esc(placeName(n)) + '</option>').join('');
+  p.value = pv;
+}
+
+function render(){
+  const t = T[lang];
+  if (!ready) { $('count').textContent = ''; $('grid').innerHTML = ''; return; }
+  const budget = +$('budget').value, beds = +$('beds').value || 0, baths = +$('baths').value || 0;
+  const place = $('place').value, pool = $('pool').checked, sort = $('sort').value;
+
+  let list = rows.filter(r =>
+    (!budget || (r.price && r.price <= budget)) &&
+    r.beds >= beds && r.baths >= baths &&
+    (!place || r.place === place) && (!pool || r.pool));
+
+  if (sort === 'low') list.sort((a,b) => (a.price||1e12) - (b.price||1e12));
+  if (sort === 'high') list.sort((a,b) => b.price - a.price);
+  if (sort === 'size') list.sort((a,b) => +b.area - +a.area);
+
+  $('count').textContent = list.length + ' ' + (list.length === 1 ? t.prop : t.props);
+  $('grid').innerHTML = list.length ? list.map(r => `
+    <article class="card">
+      <div class="thumb">
+        <img src="${esc(r.img)}" alt="${esc(L(r.name))}" loading="lazy" onerror="this.style.display='none'">
+        <div class="badges">
+          <span class="badge ${r.sold ? 'sold' : ''}">${r.sold ? t.sold : t.sale}</span>
+          ${r.pool ? `<span class="badge">${t.pool}</span>` : ''}
+        </div>
+      </div>
+      <div class="body">
+        <div class="place"><span>${esc(placeName(r.place))}</span><span>${t.code} ${esc(r.code)}</span></div>
+        <h3>${esc(L(r.name))}</h3>
+        <div class="specs">
+          <div><b>${Number(r.area).toLocaleString('en-US')} ${lang === 'ka' ? 'მ²' : 'm²'}</b><span>${t.built}</span></div>
+          <div><b>${r.rooms || '—'}</b><span>${t.rooms}</span></div>
+          <div><b>${r.beds}</b><span>${t.beds}</span></div>
+          <div><b>${r.baths}</b><span>${t.baths}</span></div>
+        </div>
+        <div class="foot">
+          <div class="price"><small>${t.price}</small><strong>${r.price ? fmt(r.price) : t.request}</strong></div>
+          <a href="property.html?id=${r.id}" class="view">${t.view}</a>
+        </div>
+      </div>
+    </article>`).join('') : `<p class="empty">${t.none}</p>`;
+}
+
+function setLang(l){
+  lang = l;
+  document.documentElement.lang = l;
+  document.title = T[l].title;
+  try { localStorage.setItem('lang', l); } catch (e) {}
+  document.querySelectorAll('[data-i18n]').forEach(el => {
+    const v = T[l][el.dataset.i18n]; if (v) el.textContent = v;
+  });
+  document.querySelectorAll('.lang button').forEach(b => b.classList.toggle('on', b.dataset.lang === l));
+  fillSelects();
+  render();
+}
+
+document.querySelector('.lang').addEventListener('click', e => { const b = e.target.closest('button'); if (b) setLang(b.dataset.lang); });
+['budget','beds','baths','place','pool','sort'].forEach(id => $(id).addEventListener('input', render));
+$('reset').addEventListener('click', () => {
+  $('budget').value = 0; $('beds').value = 0; $('baths').value = 0; $('place').value = ''; $('pool').checked = false; render();
+});
+$('menuBtn').addEventListener('click', () => $('menu').classList.toggle('open'));
+$('form').addEventListener('submit', e => { e.preventDefault(); $('form').style.display = 'none'; $('ok').style.display = 'block'; });
+
+setLang(lang);
+loadListings('sale').then(list => { rows = list; ready = true; fillSelects(); render(); });
+</script>
+</body>
+</html>
