@@ -75,7 +75,7 @@ function changeLanguage(lang) {
 
     // 4. არჩეული ენის დამახსოვრება ბრაუზერში
     try {
-        localStorage.setItem('selectedLang', lang);
+        localStorage.setItem('lang', lang);
     } catch (e) {
         // localStorage მიუწვდომელია - არაუშავს
     }
@@ -85,7 +85,23 @@ function changeLanguage(lang) {
 document.addEventListener('DOMContentLoaded', () => {
     let savedLang = 'ka';
     try {
-        savedLang = localStorage.getItem('selectedLang') || 'ka';
+        savedLang = localStorage.getItem('lang') || 'ka';
     } catch (e) {}
     changeLanguage(savedLang);
+});
+
+// სხვა ჩანართში/გვერდზე ენის შეცვლისას ეს გვერდიც ავტომატურად განახლდეს
+window.addEventListener('storage', (e) => {
+    if (e.key === 'lang' && (e.newValue === 'ka' || e.newValue === 'en')) {
+        changeLanguage(e.newValue);
+    }
+});
+
+// უკან დაბრუნებისას (Back ღილაკი) ბრაუზერის ქეშიდან გახსნილი გვერდიც განახლდეს
+window.addEventListener('pageshow', (e) => {
+    if (e.persisted) {
+        let l = 'ka';
+        try { l = localStorage.getItem('lang') || 'ka'; } catch (err) {}
+        changeLanguage(l);
+    }
 });
