@@ -350,3 +350,20 @@ footer {
     color: #cccccc;
     font-size: 0.8rem;
 }
+/* ===== Mobile ===== */
+@media (max-width: 768px) {
+    .navbar { flex-direction: row; flex-wrap: wrap; justify-content: center; gap: 6px 12px; padding: 10px 12px; }
+    .logo { font-size: 1.3rem; letter-spacing: 1px; width: 100%; text-align: center; }
+    .nav-links { display: flex; flex-wrap: wrap; justify-content: center; align-items: center; gap: 4px 4px; }
+    .nav-links a { margin: 0 6px; font-size: 0.85rem; }
+    .hero { min-height: 100vh; height: auto; padding: 120px 16px 50px; }
+    .hero-content h1 { font-size: 2rem; }
+    .hero-content p { font-size: 1rem; }
+    .hero-buttons { flex-direction: column; gap: 12px; }
+    .btn-primary { display: block; width: 100%; max-width: 340px; padding: 14px 20px; font-size: 1.2rem; text-align: center; }
+    .container { padding: 50px 16px; }
+    .section-title { font-size: 1.8rem; }
+}
+
+.logo img { height: 72px; width: auto; display: block; }
+@media (max-width: 768px) { .logo { display: flex; justify-content: center; } .logo img { height: 56px; } }

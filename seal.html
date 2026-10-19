@@ -127,7 +127,7 @@ footer p{font-size:.92rem;color:var(--muted)}
 <section class="hero">
   <h1 data-i18n="h1">იპოვე შენი საოცნებო სახლი</h1>
   <p data-i18n="sub">დახვეწილი რეზიდენციები, ფერმები და მამულები, შერჩეული შენთვის.</p>
-  <a href="#contact" class="cta" data-i18n="cta">იპოვე სახლი ჩვენთან ერთად</a>
+  <a href="contact.html" class="cta" data-i18n="cta">იპოვე სახლი ჩვენთან ერთად</a>
 </section>
 
 <section class="filters">
@@ -162,31 +162,12 @@ footer p{font-size:.92rem;color:var(--muted)}
   <div class="grid" id="grid"></div>
 </main>
 
-<section class="contact" id="contact">
-  <div class="contact-in">
-    <h2 data-i18n="c_title">შენი საოცნებო სახლი ერთი კლიკითაა</h2>
-    <p data-i18n="c_text">მოგვწერე სასურველი ბიუჯეტი და ყოველკვირეულად გამოგიგზავნით შესაფერის შეთავაზებებს.</p>
-    <form class="form" id="form">
-      <div class="field"><label for="n1" data-i18n="c_name">სახელი</label><input id="n1" required></div>
-      <div class="field"><label for="n2" data-i18n="c_surname">გვარი</label><input id="n2"></div>
-      <div class="field"><label for="em" data-i18n="c_email">ელფოსტა *</label><input id="em" type="email" required></div>
-      <div class="field"><label for="tel" data-i18n="c_tel">ტელეფონი</label><input id="tel" type="tel"></div>
-      <div class="field full"><label for="range" data-i18n="c_range">ფასის დიაპაზონი</label>
-        <select id="range"><option>$100,000 – 300,000</option><option>$300,000 – 700,000</option><option>$700,000 – 1,500,000</option><option>$1,500,000+</option></select>
-      </div>
-      <div class="field full"><label for="msg" data-i18n="c_msg">აღწერე, რას ეძებ</label><textarea id="msg"></textarea></div>
-      <label class="check full"><input type="checkbox" required> <span data-i18n="c_priv">ვეთანხმები კონფიდენციალურობის პოლიტიკას</span></label>
-      <button class="cta full" type="submit" data-i18n="c_send">გაგზავნა</button>
-    </form>
-    <p class="ok" id="ok" data-i18n="c_ok">გმადლობთ! მალე დაგიკავშირდებით.</p>
-  </div>
-</section>
 
 <footer>
   <div class="foot-in">
     <div><h4>PRIME PROPERTIES</h4><p data-i18n="f_about">იყიდება ვილები, ფერმები და მამულები: უძრავი ქონების შერჩეული კოლექცია.</p></div>
     <div><h4 data-i18n="f_explore">გვერდები</h4><ul><li><a href="seal.html" data-i18n="nav_sale">იყიდება</a></li><li><a href="rent.html" data-i18n="nav_rent">ქირავდება</a></li></ul></div>
-    <div><h4 data-i18n="f_touch">დაგვიკავშირდი</h4><p>info@PRIMEPROPERTIES.com<br>++995 500 70 05 76<br><span data-i18n="addr">დიდი დიღომი</span></p></div>
+    <div><h4 data-i18n="f_touch">დაგვიკავშირდი</h4><p>info@PRIMEPROPERTIES.com<br>+995 500 70 05 76<br><span data-i18n="addr">დიდი დიღომი</span></p></div>
   </div>
   <div class="copy" data-i18n="copy">© 2026 PRIME PROPERTIES. სასწავლო პროექტი, არა ოფიციალური საიტი.</div>
 </footer>
@@ -207,7 +188,7 @@ const T = {
   sort_by:'Sort by',s_rec:'Recommended',s_low:'Price: low to high',s_high:'Price: high to low',s_size:'Largest first',
   c_title:'Your dream home is a click away',c_text:"Tell us your price range and we'll send you tailored weekly listings.",
   c_name:'Name',c_surname:'Surname',c_email:'Email *',c_tel:'Phone',c_range:'Price range',c_msg:'Describe what you are looking for',c_priv:'I accept the privacy policy',c_send:'Send',c_ok:"Thank you! We'll be in touch soon.",
-  f_about:'Villas, farmhouses and estates for sale: a curated selection of properties.',f_explore:'Explore',f_touch:'Get in touch',addr:'Via Tripoli 30, 58100 Grosseto, Italy',
+  f_about:'Villas, farmhouses and estates for sale: a curated selection of properties.',f_explore:'Explore',f_touch:'Get in touch',addr:'Didi Dighomi, Tbilisi, Georgia',
   copy:'© 2026 PRIME PROPERTIES. Learning project, not the official website.',
   props:'properties',prop:'property',sold:'Sold',sale:'For sale',pool:'Pool',price:'Price',request:'On request',view:'View property',
   built:'Built',land:'Land',rooms:'Rooms',beds:'Beds',baths:'Baths',code:'Code',region:'Tuscany',none:'No properties match. Try changing the filters.'},
@@ -310,7 +291,6 @@ $('reset').addEventListener('click', () => {
   $('budget').value = 0; $('beds').value = 0; $('baths').value = 0; $('place').value = ''; $('pool').checked = false; render();
 });
 $('menuBtn').addEventListener('click', () => $('menu').classList.toggle('open'));
-$('form').addEventListener('submit', e => { e.preventDefault(); $('form').style.display = 'none'; $('ok').style.display = 'block'; });
 
 setLang(lang);
 loadListings('sale').then(list => { rows = list; ready = true; fillSelects(); render(); });
