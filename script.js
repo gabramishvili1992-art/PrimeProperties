@@ -31,7 +31,9 @@ if (contactForm) {
     const hero = document.querySelector('.hero');
     if (!hero) return;
     const h = new Date().getHours();
-    hero.classList.toggle('night', h >= 20 || h < 6);
+    const night = h >= 20 || h < 6;
+    hero.classList.toggle('night', night);
+    document.body.classList.toggle('night', night);
 })();
 
 // თარგმანების ბაზა

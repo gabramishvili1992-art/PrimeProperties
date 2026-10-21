@@ -374,3 +374,16 @@ footer {
         linear-gradient(rgba(10, 18, 24, 0.40), rgba(10, 18, 24, 0.40)),
         url('tbilisi-night.webp') center/cover no-repeat;
 }
+
+/* ღამის მენიუ */
+.navbar, .logo img, .nav-links a, .lang-btn { transition: background-color .4s, color .4s, filter .4s; }
+body.night .navbar { background-color: rgba(12, 20, 28, 0.88); box-shadow: 0 2px 14px rgba(0,0,0,0.5); }
+body.night .logo img { filter: brightness(0) invert(1); }
+body.night .nav-links a { color: #e8dcc6; }
+body.night .nav-links a:hover { color: #f8a558; }
+body.night .btn-nav { border-color: #f8a558; color: #f8a558 !important; }
+body.night .lang-btn { color: #e8dcc6; }
+body.night .lang-btn:hover, body.night .lang-btn.active { color: #f8a558; }
+body.night .lang-btn.active { border-bottom-color: #f8a558; }
+body.night .lang-divider { color: #6b7783; }
+body.night footer { background-color: #0c141c; color: #cfc5b3; }
