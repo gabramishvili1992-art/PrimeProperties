@@ -26,6 +26,14 @@ if (contactForm) {
     });
 }
 
+// დღე/ღამე: 20:00-დან 06:00-მდე ღამის ფონი
+(function () {
+    const hero = document.querySelector('.hero');
+    if (!hero) return;
+    const h = new Date().getHours();
+    hero.classList.toggle('night', h >= 20 || h < 6);
+})();
+
 // თარგმანების ბაზა
 const translations = {
     ka: {

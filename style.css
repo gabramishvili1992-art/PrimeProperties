@@ -367,3 +367,10 @@ footer {
 
 .logo img { height: 72px; width: auto; display: block; }
 @media (max-width: 768px) { .logo { display: flex; justify-content: center; } .logo img { height: 56px; } }
+
+/* ღამის ფონი (20:00–06:00) */
+.hero.night {
+    background:
+        linear-gradient(rgba(10, 18, 24, 0.40), rgba(10, 18, 24, 0.40)),
+        url('tbilisi-night.webp') center/cover no-repeat;
+}
