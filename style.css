@@ -369,7 +369,7 @@ footer {
 @media (max-width: 768px) { .logo { display: flex; justify-content: center; } .logo img { height: 56px; } }
 
 /* ღამის ფონი (20:00–06:00) */
-.hero.night {
+html[data-theme="dark"] .hero {
     background:
         linear-gradient(rgba(10, 18, 24, 0.40), rgba(10, 18, 24, 0.40)),
         url('tbilisi-night.jpg') center/cover no-repeat;
@@ -377,13 +377,18 @@ footer {
 
 /* ღამის მენიუ */
 .navbar, .logo img, .nav-links a, .lang-btn { transition: background-color .4s, color .4s, filter .4s; }
-body.night .navbar { background-color: rgba(12, 20, 28, 0.88); box-shadow: 0 2px 14px rgba(0,0,0,0.5); }
-body.night .logo img { filter: brightness(0) invert(1); }
-body.night .nav-links a { color: #e8dcc6; }
-body.night .nav-links a:hover { color: #f8a558; }
-body.night .btn-nav { border-color: #f8a558; color: #f8a558 !important; }
-body.night .lang-btn { color: #e8dcc6; }
-body.night .lang-btn:hover, body.night .lang-btn.active { color: #f8a558; }
-body.night .lang-btn.active { border-bottom-color: #f8a558; }
-body.night .lang-divider { color: #6b7783; }
-body.night footer { background-color: #0c141c; color: #cfc5b3; }
+html[data-theme="dark"] .navbar { background-color: rgba(12, 20, 28, 0.88); box-shadow: 0 2px 14px rgba(0,0,0,0.5); }
+html[data-theme="dark"] .logo img { filter: brightness(0) invert(1); }
+html[data-theme="dark"] .nav-links a { color: #e8dcc6; }
+html[data-theme="dark"] .nav-links a:hover { color: #f8a558; }
+html[data-theme="dark"] .btn-nav { border-color: #f8a558; color: #f8a558 !important; }
+html[data-theme="dark"] .lang-btn { color: #e8dcc6; }
+html[data-theme="dark"] .lang-btn:hover, html[data-theme="dark"] .lang-btn.active { color: #f8a558; }
+html[data-theme="dark"] .lang-btn.active { border-bottom-color: #f8a558; }
+html[data-theme="dark"] .lang-divider { color: #6b7783; }
+html[data-theme="dark"] footer { background-color: #0c141c; color: #cfc5b3; }
+
+/* ბნელი რეჟიმის ზოგადი ფონი (გალერეა და სხვა გვერდები style.css-ით) */
+html[data-theme="dark"] body { background-color: #0f1a23; color: #e8dcc6; }
+html[data-theme="dark"] .section-title { color: #e8dcc6; }
+body { transition: background-color .4s, color .4s; }

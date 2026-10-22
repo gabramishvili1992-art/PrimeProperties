@@ -26,15 +26,7 @@ if (contactForm) {
     });
 }
 
-// დღე/ღამე: 20:00-დან 06:00-მდე ღამის ფონი
-(function () {
-    const hero = document.querySelector('.hero');
-    if (!hero) return;
-    const h = new Date().getHours();
-    const night = h >= 20 || h < 6;
-    hero.classList.toggle('night', night);
-    document.body.classList.toggle('night', night);
-})();
+// დღე/ღამის რეჟიმს ახლა theme.js მართავს (გადამრთველი ენის ღილაკების ქვეშ)
 
 // თარგმანების ბაზა
 const translations = {

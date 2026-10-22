@@ -1,0 +1,70 @@
+/* theme.css: გადამრთველის სტილი და ბნელი რეჟიმის ფერები (html[data-theme="dark"]) */
+
+/* ---------- გადამრთველი ენის გადამრთველის ქვეშ ---------- */
+.lang-wrap { display: flex; flex-direction: column; align-items: center; gap: 6px; }
+.nav-links .lang-wrap { margin-left: 25px; }
+.lang-wrap .lang-switch { margin-left: 0; }
+
+.theme-toggle {
+  display: inline-flex; align-items: center; gap: 2px; padding: 2px;
+  border-radius: 999px; border: 1px solid rgba(100, 118, 138, .35);
+  background: rgba(255, 255, 255, .65);
+}
+.theme-toggle.solo { margin-left: 25px; }
+.theme-toggle button {
+  display: inline-flex; align-items: center; gap: 4px;
+  border: 0; background: transparent; color: #64768A;
+  font: inherit; font-size: .7rem; font-weight: 600; line-height: 1.2;
+  padding: 3px 9px; border-radius: 999px; cursor: pointer;
+  transition: background .25s, color .25s;
+}
+.theme-toggle button:hover { color: #1F2D3A; }
+.theme-toggle button.on { background: #5E8C7B; color: #fff; }
+.theme-toggle button:focus-visible { outline: 2px solid #B88A42; outline-offset: 1px; }
+
+@media (max-width: 768px) {
+  .nav-links .lang-wrap, .theme-toggle.solo { margin-left: 8px; }
+}
+
+/* ---------- ბნელი რეჟიმი ---------- */
+html[data-theme="dark"] {
+  color-scheme: dark;
+  --bg: #0F1A23; --surface: #16232E; --ink: #E8EEF2; --muted: #9AAAB8;
+  --sky: #1B3040; --sage: #6FA38F; --sage-dark: #5E8C7B; --sage-soft: #1D3128;
+  --gold: #D4A559; --line: #263644; --red: #E07A6C;
+}
+
+html[data-theme="dark"] .theme-toggle { border-color: rgba(232, 238, 242, .22); background: rgba(255, 255, 255, .07); }
+html[data-theme="dark"] .theme-toggle button { color: #9AAAB8; }
+html[data-theme="dark"] .theme-toggle button:hover { color: #E8EEF2; }
+html[data-theme="dark"] .theme-toggle button.on { background: #D4A559; color: #1a252f; }
+
+/* ჰედერი, ფუტერი, მენიუ */
+html[data-theme="dark"] .site-header { background: rgba(15, 26, 35, .92); }
+html[data-theme="dark"] footer { background: var(--surface); }
+html[data-theme="dark"] .nav ul.open { background: var(--surface); }
+html[data-theme="dark"] .menu-btn { color: var(--ink); }
+html[data-theme="dark"] .lang button { background: var(--surface); color: var(--muted); }
+html[data-theme="dark"] .lang button.on { background: var(--sage); border-color: var(--sage); color: #fff; }
+html[data-theme="dark"] .copy { border-top-color: var(--line); }
+
+/* ფორმები, ველები, ღილაკები */
+html[data-theme="dark"] input,
+html[data-theme="dark"] select,
+html[data-theme="dark"] textarea { background: var(--surface); color: var(--ink); border-color: var(--line); }
+html[data-theme="dark"] .form { background: var(--surface); }
+html[data-theme="dark"] .btn.call { background: transparent; color: var(--sage); }
+html[data-theme="dark"] .btn.call:hover { background: var(--sage-soft); }
+html[data-theme="dark"] .chip { background: var(--surface); color: var(--ink); }
+html[data-theme="dark"] .chip.on { background: var(--sage); color: #fff; }
+
+/* სტატიკური სურათების ჩრდილები უფრო ნაზი */
+html[data-theme="dark"] .search-box,
+html[data-theme="dark"] .filter-box,
+html[data-theme="dark"] .quick-box,
+html[data-theme="dark"] .lead,
+html[data-theme="dark"] .col { box-shadow: 0 18px 40px rgba(0, 0, 0, .35); }
+
+/* ნაგულისხმევი გადასვლა */
+body, .site-header, footer, .card, .panel, .desc, .form { transition: background-color .35s, color .35s, border-color .35s; }
+@media (prefers-reduced-motion: reduce) { body, .site-header, footer, .card, .panel, .desc, .form { transition: none; } }
