@@ -15,12 +15,16 @@
 <body>
 
     <!-- Header / Navigation -->
-    <header class="navbar">
+    <header class="navbar navbar-home">
         <a href="index.html" class="logo" aria-label="PRIME PROPERTIES"><img src="logo.png" alt="PRIME PROPERTIES"></a>
-        <nav class="nav-links">
+        <!-- შუაში: სერვისები / ჩვენ შესახებ / გალერეა -->
+        <nav class="nav-links nav-center">
             <a href="services.html" data-i18n="nav_services">სერვისები</a>
             <a href="about.html" data-i18n="nav_about">ჩვენ შესახებ</a>
             <a href="gallery.html" data-i18n="nav_gallery">გალერეა</a>
+        </nav>
+        <!-- მარჯვნივ: კონტაქტი + გადამრთველები -->
+        <div class="nav-links nav-right">
             <a href="contact.html" class="btn-nav" data-i18n="nav_contact">კონტაქტი</a>
 
             <!-- ენის გადართვის ღილაკები -->
@@ -29,7 +33,7 @@
                 <span class="lang-divider">|</span>
                 <button type="button" class="lang-btn" onclick="changeLanguage('en')">ENG</button>
             </div>
-        </nav>
+        </div>
     </header>
 
     <!-- Hero Section -->
