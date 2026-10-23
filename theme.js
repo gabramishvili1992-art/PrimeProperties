@@ -68,14 +68,14 @@
     btnLight = a.btn; txtLight = a.txt; btnDark = b.btn; txtDark = b.txt;
     box.appendChild(btnLight); box.appendChild(btnDark);
 
-    // ენის გადამრთველის ქვეშ ვათავსებთ
+    // ენის გადამრთველის მარცხნივ, ერთ ხაზზე ვათავსებთ
     var host = document.querySelector('.lang-switch') || document.querySelector('.lang');
     if (host && host.parentNode) {
       var wrap = document.createElement('div');
       wrap.className = 'lang-wrap';
       host.parentNode.insertBefore(wrap, host);
-      wrap.appendChild(host);
-      wrap.appendChild(box);
+      wrap.appendChild(box);   // დღე/ღამე მარცხნივ
+      wrap.appendChild(host);  // ენა (EN / GEO) მარჯვნივ
     } else {
       // გვერდზე ენის გადამრთველი არ არის (მაგ. გალერეა)
       box.classList.add('solo');

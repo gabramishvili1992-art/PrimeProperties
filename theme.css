@@ -1,7 +1,7 @@
 /* theme.css: გადამრთველის სტილი და ბნელი რეჟიმის ფერები (html[data-theme="dark"]) */
 
-/* ---------- გადამრთველი ენის გადამრთველის ქვეშ ---------- */
-.lang-wrap { display: flex; flex-direction: column; align-items: center; gap: 6px; }
+/* ---------- დღე/ღამის გადამრთველი ენის გადამრთველის მარცხნივ, ერთ ხაზზე ---------- */
+.lang-wrap { display: flex; flex-direction: row; align-items: center; gap: 12px; flex-wrap: nowrap; }
 .nav-links .lang-wrap { margin-left: 25px; }
 .lang-wrap .lang-switch { margin-left: 0; }
 
@@ -24,6 +24,7 @@
 
 @media (max-width: 768px) {
   .nav-links .lang-wrap, .theme-toggle.solo { margin-left: 8px; }
+  .lang-wrap { gap: 8px; }
 }
 
 /* ---------- ბნელი რეჟიმი ---------- */
