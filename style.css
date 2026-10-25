@@ -83,7 +83,7 @@ h1, h2, h3 {
     /* ოდნავ უფრო მუქი ფენა, რომ ტექსტი ფოტოს ფონზე მკაფიოდ გამოჩნდეს */
     background:
         linear-gradient(rgba(10, 18, 24, 0.48), rgba(10, 18, 24, 0.48)),
-        url('tbilisi.png') center/cover no-repeat;
+        url('tbilisi.jpg') center/cover no-repeat;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -402,4 +402,13 @@ body { transition: background-color .4s, color .4s; }
 @media (max-width: 768px) {
     .navbar-home { display: flex; }
     .navbar-home .nav-center a:first-child { margin-left: 6px; }
+}
+
+/* მობილურზე უფრო მსუბუქი დღის ფონი */
+@media (max-width: 768px) {
+    html:not([data-theme="dark"]) .hero {
+        background:
+            linear-gradient(rgba(10, 18, 24, 0.48), rgba(10, 18, 24, 0.48)),
+            url('tbilisi-mobile.jpg') center/cover no-repeat;
+    }
 }
