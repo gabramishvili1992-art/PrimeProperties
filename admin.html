@@ -88,6 +88,12 @@ dialog::backdrop{background:rgba(20,40,60,.45)}
 .ph .tag{position:absolute;left:4px;bottom:4px;font-size:.68rem;font-weight:600;background:var(--gold);color:#fff;padding:2px 8px;border-radius:999px}
 .ph .mk{position:absolute;left:4px;bottom:4px;font-size:.68rem;font-weight:600;background:rgba(255,255,255,.95);color:var(--sage);padding:2px 8px;border-radius:999px;border:0;cursor:pointer}
 .urlrow{display:flex;gap:8px}
+.daterow{display:flex;gap:8px;align-items:center;flex-wrap:wrap}
+.daterow input[type=date]{padding:9px 10px;border:1px solid var(--line);border-radius:10px;background:#fff;font:inherit}
+.bk-list{display:flex;flex-direction:column;gap:6px;margin-top:10px}
+.bk{display:flex;justify-content:space-between;align-items:center;gap:10px;background:#FBE9E6;color:var(--red);border-radius:10px;padding:6px 12px;font-size:.88rem;font-weight:600}
+.bk.past{background:#EEF1F3;color:var(--muted)}
+.bk button{border:0;background:none;color:inherit;cursor:pointer;font-size:1.2rem;line-height:1}
 .preview{width:160px;height:120px;object-fit:cover;border-radius:10px;border:1px solid var(--line);background:var(--sky);display:block;margin-bottom:8px}
 .amen{display:flex;gap:14px;flex-wrap:wrap}
 .toast{position:fixed;left:50%;bottom:24px;transform:translateX(-50%);background:var(--ink);color:#fff;padding:12px 20px;border-radius:12px;z-index:100;max-width:90vw}
@@ -188,6 +194,14 @@ dialog::backdrop{background:rgba(20,40,60,.45)}
             <label class="check"><input type="checkbox" value="ac"> კონდიციონერი</label>
           </div>
         </div>
+        <div class="field"><label for="b-from">დაკავებული პერიოდები</label>
+          <div class="daterow">
+            <input type="date" id="b-from" aria-label="დან"><span>–</span><input type="date" id="b-to" aria-label="მდე">
+            <button class="btn ghost" type="button" id="addBooked">დამატება</button>
+          </div>
+          <small>მიუთითეთ, საიდან სადამდეა ობიექტი დაკავებული (ორივე დღე ჩათვლით). საიტზე გამოჩნდება „დაკავებულია, თავისუფალია: …“ და კალენდარი. დანარჩენი დღეები თავისუფლად ითვლება.</small>
+          <div class="bk-list" id="bookedList"></div>
+        </div>
         <div class="field"><label for="f-desc">აღწერილობა ქართულად</label><textarea id="f-desc" placeholder="დამატებითი ინფორმაცია ობიექტის შესახებ..."></textarea></div>
         <div class="field"><label for="f-desc-en">აღწერილობა ინგლისურად</label><textarea id="f-desc-en" placeholder="Additional information in English..."></textarea><small>ინგლისური ვერსია გამოჩნდება, როცა სტუმარი EN ღილაკს დააჭერს. თუ ცარიელია, ქართული გამოჩნდება.</small></div>
       </div>
@@ -275,6 +289,8 @@ function renderList() {
   const list = rows.filter(r => r.kind === kind);
   $('list').innerHTML = list.length ? list.map(r => {
     const name = r.name_ka || r.name_en || '(უსახელო)';
+    const todayIso = isoToday();
+    const busyNow = kind === 'rent' && (r.booked || []).some(x => x && x.from <= todayIso && todayIso <= x.to);
     const place = r.place_ka || r.place;
     const meta = kind === 'sale'
       ? [place, r.price ? money(r.price) : 'ფასი მოთხოვნით', r.code ? 'კოდი ' + r.code : ''].filter(Boolean)
@@ -282,7 +298,7 @@ function renderList() {
     return `<div class="item ${r.published ? '' : 'hidden-item'}" data-id="${r.id}">
       ${r.img ? `<img class="thumb" src="${esc(r.img)}" alt="" loading="lazy" onerror="this.removeAttribute('src')">` : '<div class="thumb"></div>'}
       <div class="info"><h3>${esc(name)}</h3><div class="meta">${esc(meta.join(' · '))}</div>
-        <div class="chips">${r.sold ? '<span class="chip red">გაყიდულია</span>' : ''}${r.published ? '' : '<span class="chip gray">დამალულია</span>'}${r.pool ? '<span class="chip">აუზი</span>' : ''}</div></div>
+        <div class="chips">${r.sold ? '<span class="chip red">გაყიდულია</span>' : ''}${busyNow ? '<span class="chip red">ახლა დაკავებულია</span>' : ''}${r.published ? '' : '<span class="chip gray">დამალულია</span>'}${r.pool ? '<span class="chip">აუზი</span>' : ''}</div></div>
       <div class="actions">
         <button class="btn ghost small" data-act="edit" type="button">რედაქტირება</button>
         ${kind === 'sale' ? `<button class="btn ghost small" data-act="sold" type="button">${r.sold ? 'გაყიდულის გაუქმება' : 'გაყიდულად მონიშვნა'}</button>` : ''}
@@ -338,6 +354,27 @@ function renderGallery() {
   });
 }
 
+let booked = [];
+const isoToday = () => { const d = new Date(); return d.getFullYear() + '-' + String(d.getMonth() + 1).padStart(2, '0') + '-' + String(d.getDate()).padStart(2, '0'); };
+const dmy = iso => iso.split('-').reverse().join('.');
+function renderBooked() {
+  const today = isoToday();
+  $('bookedList').innerHTML = booked.map((b, i) =>
+    `<div class="bk ${b.to < today ? 'past' : ''}"><span>${dmy(b.from)} – ${dmy(b.to)}${b.to < today ? ' (გასული)' : ''}</span><button type="button" data-i="${i}" aria-label="წაშლა">×</button></div>`).join('');
+}
+function addBooked() {
+  const f = $('b-from').value, t = $('b-to').value;
+  if (!f || !t) return 'ჩაწერეთ დაკავების ორივე თარიღი (დან და მდე).';
+  if (t < f) return 'დასრულების თარიღი დაწყებამდე ვერ იქნება.';
+  booked.push({ from: f, to: t });
+  booked.sort((a, b) => a.from < b.from ? -1 : 1);
+  $('b-from').value = ''; $('b-to').value = ''; renderBooked();
+  return '';
+}
+$('addBooked').addEventListener('click', () => { $('formErr').textContent = addBooked(); });
+$('b-from').addEventListener('change', () => { $('b-to').min = $('b-from').value; });
+$('bookedList').addEventListener('click', e => { const b = e.target.closest('button[data-i]'); if (b) { booked.splice(+b.dataset.i, 1); renderBooked(); } });
+
 function openForm(r) {
   editing = r || null;
   const isSale = kind === 'sale';
@@ -354,6 +391,8 @@ function openForm(r) {
   $('f-usd').value = d.price_usd != null ? d.price_usd : ''; $('f-r-area').value = d.area != null ? d.area : ''; $('f-rooms').value = d.rooms != null ? d.rooms : '';
   $('f-floor').value = d.floor || ''; $('f-desc').value = d.description || '';
   document.querySelectorAll('#amenBox input').forEach(i => { i.checked = (d.amenities || []).includes(i.value); });
+  booked = (Array.isArray(d.booked) ? d.booked : []).filter(x => x && x.from && x.to).map(x => ({ from: x.from, to: x.to }));
+  $('b-from').value = ''; $('b-to').value = ''; renderBooked();
   $('f-img').value = ''; $('f-file').value = '';
   originalUrls = (d.images && d.images.length ? d.images : (d.img ? [d.img] : [])).slice();
   photos = originalUrls.map(u => ({ url: u })); renderGallery();
@@ -403,6 +442,7 @@ $('form').addEventListener('submit', async e => {
   err('');
   if (!val('f-name-ka') && !val('f-name-en')) return err('ჩაწერეთ ობიექტის სახელი (ქართულად ან ინგლისურად).');
   if (!val('f-place')) return err('ჩაწერეთ ადგილი ინგლისურად (მაგ. Tbilisi).');
+  if (!isSale && ($('b-from').value || $('b-to').value)) { const m = addBooked(); if (m) return err(m); }   // ჩაუმატებელი თარიღებიც არ დაიკარგოს
   const price = isSale ? Number(val('f-price') || 0) : (editing ? Number(editing.price) || 0 : 0);
   if (isNaN(price) || price < 0) return err('ფასი უნდა იყოს დადებითი რიცხვი.');
 
@@ -423,6 +463,7 @@ $('form').addEventListener('submit', async e => {
     Object.assign(p, { price_usd: intOrNull('f-usd'), area: intOrNull('f-r-area'), rooms: intOrNull('f-rooms'), floor: val('f-floor') || null,
       description: val('f-desc') || null, description_en: val('f-desc-en') || null, guests: editing ? editing.guests : null,
       amenities: [...document.querySelectorAll('#amenBox input:checked')].map(i => i.value) });
+    if (booked.length || (editing && editing.booked && editing.booked.length)) p.booked = booked;
   }
 
   $('saveBtn').disabled = true; $('saveBtn').textContent = 'ინახება...';

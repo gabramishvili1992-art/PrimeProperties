@@ -63,6 +63,7 @@ img{display:block;max-width:100%}
 .thumb{position:relative;aspect-ratio:4/3;background:linear-gradient(135deg,var(--sky),var(--sage-soft));overflow:hidden}
 .thumb img{width:100%;height:100%;object-fit:cover}
 .badge{position:absolute;top:12px;left:12px;background:rgba(255,255,255,.95);color:var(--sage);font-size:.78rem;font-weight:600;padding:5px 12px;border-radius:999px}
+.badge.busy{background:#C9594B;color:#fff}
 .body{padding:18px 20px 20px;display:flex;flex-direction:column;gap:6px;flex:1}
 .place{font-size:.85rem;color:var(--muted)}
 .body h3{font-family:var(--serif);font-weight:500;font-size:1.1rem;line-height:1.4}
@@ -175,7 +176,7 @@ const T = {
   h1:'Exclusive Property Rentals',sub:'Choose a location, number of rooms and price.',
   f_where:'Where',all_dest:'All destinations',f_rooms:'Rooms (min)',f_budget:'Price',any_price:'Any price',upto:'Up to ',find:'Search',
   sort_by:'Sort by',s_rec:'Recommended',s_low:'Price: low to high',s_high:'Price: high to low',s_big:'Largest first',
-  found:'Properties found: ',area:'Area',rooms:'Rooms',floor:'Floor',price:'Price',view:'View property',tuscany:'Tuscany',
+  busy:'Booked',free_from:'available from',free:'Available',found:'Properties found: ',area:'Area',rooms:'Rooms',floor:'Floor',price:'Price',view:'View property',tuscany:'Tuscany',
   none:'No properties match. Try changing the filters.',
   f_about:'Carefully selected apartment.',f_pages:'Pages',f_touch:'Get in touch',addr:'Didi Dighomi',
   copy:'© 2026 PRIME PROPERTIES. Learning project, not the official website.'},
@@ -184,7 +185,7 @@ const T = {
   h1:'ექსკლუზიური ბინების გაქირავება',sub:'აირჩიე მდებარეობა, ოთახების რაოდენობა და ფასი.',
   f_where:'სად',all_dest:'ყველა მიმართულება',f_rooms:'ოთახი (მინ.)',f_budget:'ფასი',any_price:'ნებისმიერი ფასი',upto:'',find:'ძებნა',
   sort_by:'დალაგება',s_rec:'რეკომენდებული',s_low:'ფასი: ზრდადობით',s_high:'ფასი: კლებადობით',s_big:'ჯერ ყველაზე დიდი',
-  found:'ნაპოვნია ობიექტი: ',area:'ფართი',rooms:'ოთახი',floor:'სართული',price:'ფასი',view:'ობიექტის ნახვა',tuscany:'ტოსკანა',
+  busy:'დაკავებულია',free_from:'თავისუფალია:',free:'თავისუფალია',found:'ნაპოვნია ობიექტი: ',area:'ფართი',rooms:'ოთახი',floor:'სართული',price:'ფასი',view:'ობიექტის ნახვა',tuscany:'ტოსკანა',
   none:'ობიექტი ვერ მოიძებნა. სცადე ფილტრების შეცვლა.',
   f_about:'საგულდაგულოდ შერჩეული აპარტამენტები.',f_pages:'გვერდები',f_touch:'დაგვიკავშირდი',addr:'დიდი დიღომი',
   copy:'© 2026 PRIME PROPERTIES. სასწავლო პროექტი, არა ოფიციალური საიტი.'}
@@ -236,10 +237,15 @@ function render(){
 
   $('grid').innerHTML = list.length ? list.map(v => {
     const am = (v.amenities || []).map(a => AMENITIES[a] ? AMENITIES[a][lang] : a);
+    const bi = bookingInfo(v.booked);
+    const badge = !bi ? '' : bi.busy
+      ? `<span class="badge busy">${t.busy} · ${t.free_from} ${esc(fmtDay(bi.freeFrom, lang))}</span>`
+      : `<span class="badge">${t.free}</span>`;
     return `
     <article class="card">
       <div class="thumb">
         <img src="${esc(v.img)}" alt="${esc(L(v.name))}" loading="lazy" onerror="this.style.display='none'">
+        ${badge}
       </div>
       <div class="body">
         <span class="place">${esc(placeName(v.place))}</span>
